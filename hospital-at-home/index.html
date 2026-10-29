@@ -53,6 +53,10 @@ h2{font-size:22px; letter-spacing:-.01em; margin:0 0 14px}
 .how div::before{content:counter(h); width:30px; height:30px; border-radius:50%; background:var(--orange); color:#1F1636; font-weight:800; display:grid; place-items:center}
 .how p{margin:3px 0 0; color:var(--ink2); font-size:15px}
 .how b{color:var(--ink)}
+.tag{font-size:20px; font-weight:800; letter-spacing:-.01em; color:var(--ink); margin:0 0 8px}
+.chips{display:flex; flex-wrap:wrap; gap:8px; margin-top:16px}
+.chips span{font-size:13px; font-weight:700; padding:6px 11px; border-radius:999px; background:var(--surface); border:1px solid var(--line); color:var(--ink2)}
+.who{background:var(--surface); border:1px solid var(--line); border-left:4px solid var(--orange); border-radius:14px; padding:16px; margin:0; color:var(--ink2); font-size:16px}
 </style>
 </head>
 <body>
@@ -79,13 +83,162 @@ const HOW = [
   ['Review', 'Practitioners see the new reading in their dashboard, together with the patient’s history.'],
   ['Act', 'The clinic team follows up early – a call, a visit or a therapy change – without the patient coming in.'],
 ];
+/* Partner-specific copy. how = [Measure, Review, Act]; tiles = [Patients, Practitioners, Clinics, Families] as [title, text]. */
+const PARTNER = {
+  mio: {
+    tagline: 'Blood glucose for everyday diabetes care',
+    lead: 'Daily glucose readings from home – the rechargeable MIO meter sends every value straight to the care team. No logbook needed.',
+    chips: ['Blood glucose', 'Rechargeable', 'Bluetooth'],
+    who: 'People with type 2 diabetes who check their glucose regularly, and practices that want to see how therapy works between visits.',
+    how: ['The patient measures glucose as usual. The MIO meter sends each value to the app via Bluetooth.',
+          'The practice sees fasting and after-meal values as a trend – not as single numbers copied from a paper diary.',
+          'If values drift, the team adjusts medication or lifestyle advice early – without waiting for the next quarterly visit.'],
+    tiles: [['No more logbook', 'Rechargeable meter, automatic transfer – patients just measure.'],
+            ['Trends instead of snapshots', 'See glucose values between visits and judge how the therapy is working.'],
+            ['Structured diabetes care', 'Follow all diabetes patients of the clinic in one dashboard, across practitioners.'],
+            ['Peace of mind', 'Relatives can see readings read-only – for example for older parents living alone.']]
+  },
+  fora: {
+    tagline: 'Oxygen saturation after hospital discharge',
+    lead: 'SpO₂ and pulse from home – so patients can leave hospital earlier and still stay in view of the care team.',
+    chips: ['SpO₂', 'Pulse rate', 'Bluetooth'],
+    who: 'Patients with COPD, after pneumonia or after surgery whose oxygen saturation should be checked in the days and weeks after discharge.',
+    how: ['The patient slides a finger into the FORA PO200. SpO₂ and pulse go to the app via Bluetooth.',
+          'The team sees saturation and pulse over several days, with the patient’s history alongside.',
+          'If saturation drops, the team calls or visits early – before the patient has to come back to hospital.'],
+    tiles: [['Home sooner', 'Leave hospital earlier with a simple finger check – several times a day if needed.'],
+            ['Spot a decline early', 'Falling SpO₂ or a rising pulse is visible in the dashboard right away.'],
+            ['Safer early discharge', 'Monitor discharged patients remotely and plan follow-up by need, not by routine.'],
+            ['Know they’re okay', 'Relatives can follow the readings read-only during recovery.']]
+  },
+  oxysmart: {
+    tagline: 'Simple fingertip checks for long-term monitoring',
+    lead: 'A one-button fingertip check that fits into every day – SpO₂ and pulse go straight to the care team, for weeks or months.',
+    chips: ['SpO₂', 'Pulse rate', 'One button'],
+    who: 'Patients with chronic lung or heart disease, and people recovering from respiratory infections, who need regular oxygen checks at home over a longer time.',
+    how: ['One button, one finger: the OXYSMART measures SpO₂ and pulse in seconds and sends them via Bluetooth.',
+          'The team sees the long-term course and can compare every reading with the patient’s own usual values.',
+          'A change from the usual pattern leads to a check-in call, a medication review or an earlier appointment.'],
+    tiles: [['Easy enough for every day', 'Compact and simple to use – also for older patients.'],
+            ['Personal baselines', 'Judge each reading against the patient’s own normal range, not only a textbook value.'],
+            ['Scale to many patients', 'One dashboard for long-term monitoring across your whole patient group.'],
+            ['Shared from afar', 'Caregivers see how their relative is doing, read-only.']]
+  },
+  andesfit: {
+    tagline: 'Glucose monitoring in mg/dL or mmol/L',
+    lead: 'Blood glucose from home in the unit your patients and teams are used to – mg/dL or mmol/L.',
+    chips: ['Blood glucose', 'mg/dL · mmol/L', 'Bluetooth'],
+    who: 'Diabetes programmes that work across sites or countries, where patients and care teams use different glucose units.',
+    how: ['The patient measures with the Andesfit ADF-B27. The value goes to the app via Bluetooth together with its unit.',
+          'The team sees all readings in one place, together with the patient’s history.',
+          'The team adjusts therapy remotely and follows up only where it is needed.'],
+    tiles: [['Familiar numbers', 'Readings in the unit patients know – nothing to convert in their head.'],
+            ['No transcription errors', 'Every value arrives with its unit – nobody types numbers off a display.'],
+            ['International programmes', 'Run remote glucose monitoring across sites and countries on one platform.'],
+            ['Support at home', 'Family members can follow readings read-only and help with daily routines.']]
+  },
+  aktivmed: {
+    tagline: 'Hygienic glucose testing for home and care services',
+    lead: 'Glucose testing with hygienic strip ejection – made for home care, nursing services and care homes.',
+    chips: ['Blood glucose', 'Strip eject button', 'Bluetooth'],
+    who: 'Nursing services and care homes that measure glucose for their residents, and patients at home who are supported by a nurse.',
+    how: ['The patient or nurse measures and ejects the used strip without touching it. The value goes to the app via Bluetooth.',
+          'The doctor sees readings taken at home and by the care service in the same place.',
+          'Doctor and care service coordinate on the same data – therapy changes without paper handovers or faxes.'],
+    tiles: [['Measured, done', 'Values are transferred automatically – nothing to write down.'],
+            ['One view with the care service', 'Readings taken by nursing staff appear in the same dashboard.'],
+            ['Hygiene built in', 'Touch-free strip ejection supports hygienic routines for care staff.'],
+            ['Informed relatives', 'Relatives can see readings read-only, even when they live far away.']]
+  },
+  fora6duo: {
+    tagline: 'Glucose and β-ketone in one meter',
+    lead: 'Glucose and β-ketone with one meter – so the care team sees ketones, not just sugar.',
+    chips: ['Blood glucose', 'β-ketone', 'Bluetooth'],
+    who: 'People with type 1 diabetes, insulin pump users and patients on SGLT2 inhibitors – where a ketone check helps to catch ketoacidosis early.',
+    how: ['The patient measures glucose – and ketones with the β-ketone strip when glucose is high or they feel unwell.',
+          'The team sees glucose and ketone values side by side in the dashboard.',
+          'Rising ketones lead to an early call and the sick-day plan – before an emergency admission becomes necessary.'],
+    tiles: [['One meter, two values', 'No second device for ketone checks.'],
+            ['Ketones in context', 'Judge every ketone value next to glucose and the patient’s history.'],
+            ['Sick days covered', 'Support patients remotely when they are ill – when the risk is highest.'],
+            ['Extra safety for families', 'Parents of teenagers with type 1 diabetes can follow readings read-only.']]
+  },
+  sinocare: {
+    tagline: 'No coding, tiny sample – easy glucose checks',
+    lead: 'Glucose testing with no coding and a 0.6 µl sample – easy to start, easy to keep doing.',
+    chips: ['Blood glucose', 'No coding', '0.6 µl sample'],
+    who: 'Patients who are new to glucose self-testing and older patients – a simple routine makes regular readings much more likely.',
+    how: ['Insert a strip, add a tiny drop of blood – no coding. The value goes to the app via Bluetooth.',
+          'The team sees how values develop – and whether the patient measures regularly.',
+          'If readings are missing or out of range, the team follows up with a call or an adjusted therapy.'],
+    tiles: [['Simple from day one', 'No coding and a very small blood sample.'],
+            ['See adherence', 'Notice when a patient stops measuring – not only what the values are.'],
+            ['Easy onboarding', 'Fewer setup questions when new patients start home monitoring.'],
+            ['Help at a distance', 'Family can follow readings read-only and give a gentle reminder.']]
+  },
+  bpb6: {
+    tagline: 'Blood pressure with AFib screening',
+    lead: 'Home blood pressure with triple measurement and AFib screening – home readings your care team can rely on.',
+    chips: ['Blood pressure', 'Pulse', 'MAM · AFib screening'],
+    who: 'Patients with high blood pressure or on blood pressure medication, and people with a higher stroke risk where atrial fibrillation should be found early.',
+    how: ['In MAM mode the monitor measures three times in a row and screens for atrial fibrillation. Results go to the app via Bluetooth.',
+          'The team sees home blood pressure over weeks – the real picture, not one reading at the practice.',
+          'The team adjusts medication based on home values and arranges an ECG if atrial fibrillation is suspected.'],
+    tiles: [['Reliable at home', 'Three measurements, one averaged result – less noise than a single reading.'],
+            ['Beyond white-coat readings', 'Home values show how blood pressure really behaves in daily life.'],
+            ['Stroke prevention', 'AFib screening during routine checks helps find patients who need further tests.'],
+            ['Keep an eye on it', 'Relatives can follow blood pressure read-only.']]
+  },
+  ihealth: {
+    tagline: 'Blood pressure with a clear colour indicator',
+    lead: 'Blood pressure at a glance – the colour screen shows patients right away whether their reading is in range.',
+    chips: ['Blood pressure', 'Pulse', 'WHO colour scale'],
+    who: 'Older patients and people new to home blood pressure monitoring, who benefit from instant, easy-to-understand feedback.',
+    how: ['The patient measures; the screen shows the WHO classification in green, yellow or red. Values go to the app via Bluetooth.',
+          'The team sees all readings and their trend over time.',
+          'Readings that stay high lead to a medication review – remotely, without an extra visit.'],
+    tiles: [['Understand your reading', 'Green, yellow or red – no need to interpret numbers.'],
+            ['Engaged patients', 'Instant feedback helps patients stick with their routine.'],
+            ['Low barrier to start', 'An easy device for broad blood pressure programmes.'],
+            ['Simple to share', 'Relatives see readings read-only and know when to check in.']]
+  },
+  pf200: {
+    tagline: 'Peak flow and FEV1 for asthma and COPD',
+    lead: 'Peak flow and FEV1 from home – see a worsening of asthma or COPD before it turns into an exacerbation.',
+    chips: ['PEF', 'FEV1', 'Bluetooth'],
+    who: 'Patients with asthma or COPD, and lung specialists who manage therapy with regular lung function readings.',
+    how: ['The patient blows into the PF 200 BT. PEF and FEV1 go to the app via Bluetooth.',
+          'The team sees lung function over time and can compare it with the patient’s personal best.',
+          'A falling trend leads to an early therapy step-up, in line with the patient’s action plan.'],
+    tiles: [['A quick daily check', 'One breath shows whether the lungs are stable.'],
+            ['Lung function between visits', 'PEF and FEV1 over weeks instead of one spirometry at the practice.'],
+            ['Act before exacerbations', 'Early signs of decline give the team time to adjust therapy.'],
+            ['Support for parents', 'Parents of children with asthma can follow readings read-only.']]
+  },
+  jpd200s: {
+    tagline: 'Fetal heart rate at home during pregnancy',
+    lead: 'Fetal heart rate from home – shared with the midwife or gynaecologist, as an addition to regular check-ups.',
+    chips: ['Fetal heart rate', 'Ultrasound Doppler', 'Bluetooth'],
+    who: 'Expectant mothers in remote care programmes – for example with a long way to the practice – together with their midwife or gynaecologist.',
+    how: ['With ultrasound gel and the probe, the mother finds the heartbeat. The fetal heart rate goes to the app via Bluetooth.',
+          'The midwife or practice sees the readings with date and time.',
+          'If something seems unusual, the team gets in touch and arranges a check-up. The Doppler never replaces CTG or prenatal care.'],
+    tiles: [['Closer to your baby', 'Hear the heartbeat at home and share it with your care team.'],
+            ['Context for every call', 'Recent readings are at hand when an expectant mother calls.'],
+            ['Remote prenatal support', 'Add a home component to prenatal programmes – as an addition, not a replacement.'],
+            ['Share the moment', 'Partners and family can see readings read-only.']]
+  },
+};
 const TRUST = ['MDR Class IIa', 'ISO 13485', 'ISO 27001', 'GDPR', 'Hosted in Germany', 'HL7 FHIR R4'];
 const esc = s => String(s).replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
 const devName = d => d.device.replace('Pulsoximeter','Pulse Oximeter').replace('Blutzuckermessgerät','Blood Glucose Meter').replace('Fingertip-Pulse','Fingertip Pulse');
 
-function benefits(){
-  return `<section><h2>How it works</h2><div class="how">${HOW.map(h=>`<div><p><b>${h[0]}.</b> ${h[1]}</p></div>`).join('')}</div></section>
-  <section><h2>Why Hospital at Home</h2><div class="grid">${BENEFITS.map(b=>`<div class="tile"><b><i>${b[0]}</i>${b[1]}</b><p>${b[2]}</p></div>`).join('')}</div></section>
+function benefits(d){
+  const p = d && PARTNER[d.id];
+  const how = p ? HOW.map((h,i)=>[h[0], p.how[i]]) : HOW;
+  const tiles = p ? BENEFITS.map((b,i)=>[b[0], p.tiles[i][0], p.tiles[i][1]]) : BENEFITS;
+  return `<section><h2>${p ? `How it works with the ${esc(devName(d))}` : 'How it works'}</h2><div class="how">${how.map(h=>`<div><p><b>${h[0]}.</b> ${esc(h[1])}</p></div>`).join('')}</div></section>
+  <section><h2>${p ? `What ${esc(d.short)} × Actimi brings` : 'Why Hospital at Home'}</h2><div class="grid">${tiles.map(b=>`<div class="tile"><b><i>${b[0]}</i>${esc(b[1])}</b><p>${esc(b[2])}</p></div>`).join('')}</div></section>
   <section><h2>Certified and secure</h2><div class="trust">${TRUST.map(t=>`<span>${t}</span>`).join('')}</div></section>`;
 }
 function overview(){
@@ -93,18 +246,21 @@ function overview(){
     <h1>Hospital at Home <em>by Actimi</em></h1>
     <p class="lead">Your patients measure at home. Practitioners and clinics see the readings in real time – on one certified platform.</p></section>
   ${benefits()}
-  <section><h2>Our partners at MEDICA</h2><div class="partners">${DATA.devices.map(d=>`<a href="#${d.id}"><div><strong>${esc(d.short)} × Actimi</strong><br><span>${esc(devName(d))}</span></div></a>`).join('')}</div></section>
+  <section><h2>Our partners at MEDICA</h2><div class="partners">${DATA.devices.map(d=>`<a href="#${d.id}"><div><strong>${esc(d.short)} × Actimi</strong><br><span>${esc(devName(d))} · ${esc(PARTNER[d.id].tagline)}</span></div></a>`).join('')}</div></section>
   <p class="foot">Actimi GmbH · Stuttgart · <a href="https://actimi.com" style="color:inherit">actimi.com</a></p>`;
 }
 function partner(d){
-  const app = `${d.short} Hospital at Home app`, link = APP_LINKS[d.id];
+  const p = PARTNER[d.id], app = `${d.short} Hospital at Home app`, link = APP_LINKS[d.id];
   const btn = link ? `<a class="btn" href="${esc(link)}">Download the ${esc(app)}</a><small>For iPhone and Android</small>`
                    : `<span class="btn" aria-disabled="true">Download the ${esc(app)}</span><small>Download link coming soon – ask us at MEDICA, Hall 17, Booth B22.</small>`;
   return `<a class="back" href="#start">← Hospital at Home</a>
   <section><div class="eyebrow">MEDICA 2026</div><h1>${esc(d.short)} <em>× Actimi</em></h1><p class="sub">Hospital at Home</p>
-    <p class="lead">Your ${esc(devName(d))}, connected to the care team – from home.</p>
+    <p class="tag">${esc(p.tagline)}</p>
+    <p class="lead">${esc(p.lead)}</p>
+    <div class="chips"><span>${esc(devName(d))}</span>${p.chips.map(c=>`<span>${esc(c)}</span>`).join('')}</div>
     <div class="cta">${btn}</div></section>
-  ${benefits()}
+  <section><h2>Who it’s for</h2><p class="who">${esc(p.who)}</p></section>
+  ${benefits(d)}
   <section><h2>Set up your device</h2><a class="guide" href="../#${d.id}"><div><strong>${esc(devName(d))} – setup guide</strong><br><span>Video and 6 steps: pairing, measuring, sending readings</span></div></a></section>
   <p class="foot">Demo for MEDICA 2026. Always follow the manufacturer’s instructions for use. Actimi GmbH · <a href="https://actimi.com" style="color:inherit">actimi.com</a></p>`;
 }
