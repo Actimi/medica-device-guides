@@ -1,0 +1,124 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex">
+<title>Vitaliva Geräte-Anleitungen</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap">
+<style>
+/* Layout: single mobile column; a sticky brand bar with language switch, then either the device overview or one device guide (video, numbered steps, tip). */
+:root{
+  --bg:#FBF6ED; --bg2:#F5EDDD; --surface:#FFFFFF; --ink:#1F1636; --ink2:#3B2D5A; --ink3:#6A607A; --ink4:#9C95A8;
+  --line:rgba(52,30,76,.12); --orange:#FF8A47; --magenta:#E72166; --amber:#F29E54; --coral:#EC6263;
+  --paper:#1F1636; --paper-ink:#FFF5E8; --paper-ink2:#C4B3CC; --accent-text:#C2410C;
+  --f-display:"Instrument Serif", Georgia, "Times New Roman", serif;
+  --f-body:Inter, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+}
+@media (prefers-color-scheme: dark){ :root:not([data-theme="light"]){
+  --bg:#221836; --bg2:#2A1F44; --surface:#322550; --ink:#FFF5E8; --ink2:#F0DDC0; --ink3:#C4B3CC; --ink4:#7E6F96;
+  --line:rgba(255,245,232,.12); --paper:#3A2C60; --paper-ink:#FFF5E8; --paper-ink2:#C4B3CC; --accent-text:#FF8A47; color-scheme:dark } }
+:root[data-theme="dark"]{
+  --bg:#221836; --bg2:#2A1F44; --surface:#322550; --ink:#FFF5E8; --ink2:#F0DDC0; --ink3:#C4B3CC; --ink4:#7E6F96;
+  --line:rgba(255,245,232,.12); --paper:#3A2C60; --paper-ink:#FFF5E8; --paper-ink2:#C4B3CC; --accent-text:#FF8A47; color-scheme:dark }
+*{box-sizing:border-box}
+body{background:var(--bg); color:var(--ink); font-family:var(--f-body); font-size:16px; line-height:1.55; -webkit-font-smoothing:antialiased}
+body::before{content:""; position:fixed; inset:0 0 auto; height:env(safe-area-inset-top,0px); z-index:10; background:var(--bg)}
+.flame{height:5px; background:linear-gradient(90deg,var(--amber),var(--coral) 50%,var(--magenta))}
+.bar{position:sticky; top:env(safe-area-inset-top,0px); z-index:5; background:color-mix(in srgb,var(--bg) 92%,transparent); backdrop-filter:blur(8px); border-bottom:1px solid var(--line)}
+.wrap{max-width:720px; margin:0 auto; padding-left:max(16px,env(safe-area-inset-left,0px)); padding-right:max(16px,env(safe-area-inset-right,0px))}
+.bar .wrap{display:flex; align-items:center; justify-content:space-between; gap:12px; padding-block:12px}
+.brand{display:flex; align-items:baseline; gap:10px; text-decoration:none; color:var(--ink)}
+.brand b{font-weight:700; letter-spacing:.14em; font-size:15px}
+.brand span{font-size:12px; letter-spacing:.08em; text-transform:uppercase; color:var(--ink3)}
+.lang{display:flex; border:1px solid var(--line); border-radius:999px; padding:3px; background:var(--surface)}
+.lang button{font:600 13px/1 var(--f-body); border:0; background:transparent; color:var(--ink3); padding:7px 12px; border-radius:999px; cursor:pointer}
+.lang button[aria-pressed="true"]{background:var(--ink); color:var(--bg)}
+button:focus-visible,a:focus-visible{outline:3px solid var(--orange); outline-offset:2px}
+main .wrap{padding-block:28px 48px; display:flex; flex-direction:column; gap:28px}
+.eyebrow{font-size:12px; font-weight:600; letter-spacing:.12em; text-transform:uppercase; color:var(--accent-text)}
+h1{font-family:var(--f-display); font-weight:400; font-size:clamp(40px,10vw,60px); line-height:1.02; margin:6px 0 0; text-wrap:balance; letter-spacing:-.01em}
+h1 em{font-style:italic; color:var(--accent-text)}
+.lead{color:var(--ink2); margin:12px 0 0; max-width:60ch}
+.meta{display:flex; flex-wrap:wrap; gap:8px; margin-top:16px}
+.chip{font-size:13px; padding:5px 11px; border-radius:999px; background:var(--bg2); color:var(--ink2); border:1px solid var(--line)}
+video{width:100%; max-width:100%; aspect-ratio:16/9; display:block; border-radius:14px; background:var(--paper); box-shadow:0 20px 50px -20px rgba(31,22,54,.28)}
+.vcap{font-size:13px; color:var(--ink3); margin-top:8px}
+h2{font-family:var(--f-display); font-weight:400; font-size:32px; line-height:1.1; margin:0}
+ol.steps{list-style:none; margin:16px 0 0; padding:0; display:flex; flex-direction:column; gap:10px; counter-reset:s}
+ol.steps li{counter-increment:s; display:grid; grid-template-columns:40px 1fr; gap:14px; align-items:start; background:var(--surface); border:1px solid var(--line); border-radius:12px; padding:16px}
+ol.steps li::before{content:counter(s); width:34px; height:34px; border-radius:50%; background:var(--orange); color:#1F1636; font-weight:700; display:grid; place-items:center; font-variant-numeric:tabular-nums}
+ol.steps li div{min-width:0}
+ol.steps h3{margin:4px 0 2px; font-size:17px; font-weight:700}
+ol.steps p{margin:0; color:var(--ink2)}
+.tip{background:var(--paper); color:var(--paper-ink); border-radius:14px; padding:18px 20px}
+.tip b{display:block; font-size:12px; letter-spacing:.12em; text-transform:uppercase; color:var(--orange); margin-bottom:4px}
+.foot{font-size:13px; color:var(--ink3); border-top:1px solid var(--line); padding-top:16px}
+.back{font-weight:600; color:var(--accent-text); text-decoration:none}
+.grid{display:grid; grid-template-columns:repeat(auto-fill,minmax(200px,1fr)); gap:12px}
+.card{display:flex; flex-direction:column; gap:10px; text-decoration:none; color:var(--ink); background:var(--surface); border:1px solid var(--line); border-radius:14px; padding:12px; transition:transform .15s ease}
+.card:hover{transform:translateY(-2px)}
+.card img{border-radius:9px; aspect-ratio:16/9; object-fit:cover; width:100%}
+.card strong{font-size:16px}
+.card span{font-size:13px; color:var(--ink3)}
+@media (prefers-reduced-motion: reduce){ .card{transition:none} .card:hover{transform:none} }
+</style>
+</head>
+<body>
+
+<div class="flame"></div>
+<header class="bar"><div class="wrap">
+  <a class="brand" href="#start"><b>VITALIVA</b><span data-i="tagline">Geräte-Anleitungen</span></a>
+  <div class="lang" role="group" aria-label="Sprache / Language">
+    <button id="lang-de" type="button" data-l="de">DE</button>
+    <button id="lang-en" type="button" data-l="en">EN</button>
+  </div>
+</div></header>
+<main><div class="wrap" id="view"></div></main>
+
+<script>
+const DATA = {"templates": {"glucose": [{"icon": "tablet", "de": ["App vorbereiten", "Die App Vitaliva auf Smartphone oder Tablet öffnen. Das Messgerät ist einmalig unter „Devices → Add“ gekoppelt."], "en": ["Prepare the app", "Open the Vitaliva app on your phone or tablet. The meter is paired once under “Devices → Add”."]}, {"icon": "strip", "de": ["Teststreifen einsetzen", "Einen neuen Teststreifen mit den Kontakten voran einsetzen. Das Messgerät schaltet sich ein."], "en": ["Insert a test strip", "Insert a new test strip, contacts first. The meter switches on."]}, {"icon": "drop", "de": ["Probe auftragen", "Blutstropfen an die Spitze des Streifens halten, bis er sich füllt. Bei der Demo auf der MEDICA nutzen wir Kontrolllösung."], "en": ["Apply the sample", "Touch a drop of blood to the tip of the strip until it fills. For the MEDICA demo we use control solution."]}, {"icon": "display", "de": ["Ergebnis ablesen", "Nach wenigen Sekunden zeigt das Messgerät den Blutzuckerwert an."], "en": ["Read the result", "After a few seconds the meter shows the blood glucose value."]}, {"icon": "bluetooth", "de": ["Automatisch übertragen", "Der Wert geht per Bluetooth an Vitaliva und erscheint unter „Home“ und „History“."], "en": ["Automatic transfer", "The value is sent to Vitaliva via Bluetooth and appears under “Home” and “History”."]}, {"icon": "dashboard", "de": ["Im Vitaliva-Dashboard", "Das Behandlungsteam sieht den neuen Wert sofort im Vitaliva-Dashboard."], "en": ["In the Vitaliva dashboard", "The care team sees the new value right away in the Vitaliva dashboard."]}], "spo2": [{"icon": "tablet", "de": ["App vorbereiten", "Die App Vitaliva auf Smartphone oder Tablet öffnen. Das Pulsoximeter ist einmalig unter „Devices → Add“ gekoppelt."], "en": ["Prepare the app", "Open the Vitaliva app on your phone or tablet. The pulse oximeter is paired once under “Devices → Add”."]}, {"icon": "finger", "de": ["Finger einlegen", "Zeige- oder Mittelfinger bis zum Anschlag einlegen, der Fingernagel zeigt nach oben."], "en": ["Insert your finger", "Slide your index or middle finger all the way in, nail facing up."]}, {"icon": "button", "de": ["Messung starten", "Taste am Gerät drücken. Die Hand ruhig auf den Tisch legen und nicht sprechen."], "en": ["Start the measurement", "Press the button on the device. Rest your hand on the table and keep still."]}, {"icon": "display", "de": ["Ergebnis ablesen", "Nach etwa 10 Sekunden zeigt das Display Sauerstoffsättigung (SpO₂) und Puls."], "en": ["Read the result", "After about 10 seconds the display shows oxygen saturation (SpO₂) and pulse rate."]}, {"icon": "bluetooth", "de": ["Automatisch übertragen", "Die Werte gehen per Bluetooth an Vitaliva und erscheinen unter „Home“ und „History“."], "en": ["Automatic transfer", "The values are sent to Vitaliva via Bluetooth and appear under “Home” and “History”."]}, {"icon": "dashboard", "de": ["Im Vitaliva-Dashboard", "Das Behandlungsteam sieht SpO₂ und Puls sofort im Vitaliva-Dashboard."], "en": ["In the Vitaliva dashboard", "The care team sees SpO₂ and pulse right away in the Vitaliva dashboard."]}], "bp": [{"icon": "tablet", "de": ["App vorbereiten", "Die App Vitaliva auf Smartphone oder Tablet öffnen. Das Blutdruckmessgerät ist einmalig unter „Devices → Add“ gekoppelt."], "en": ["Prepare the app", "Open the Vitaliva app on your phone or tablet. The blood pressure monitor is paired once under “Devices → Add”."]}, {"icon": "cuff", "de": ["Manschette anlegen", "Manschette am freien Oberarm anlegen, etwa 2 cm über der Ellenbeuge. Den Arm entspannt auf Herzhöhe ablegen."], "en": ["Put on the cuff", "Wrap the cuff around the bare upper arm, about 2 cm above the elbow. Rest the arm relaxed at heart level."]}, {"icon": "button", "de": ["Messung starten", "Start-Taste drücken. Während der Messung ruhig sitzen und nicht sprechen."], "en": ["Start the measurement", "Press the start button. Sit still and do not talk during the measurement."]}, {"icon": "display", "de": ["Ergebnis ablesen", "Das Display zeigt den oberen und unteren Blutdruckwert sowie den Puls."], "en": ["Read the result", "The display shows systolic and diastolic blood pressure and the pulse rate."]}, {"icon": "bluetooth", "de": ["Automatisch übertragen", "Die Werte gehen per Bluetooth an Vitaliva und erscheinen unter „Home“ und „History“."], "en": ["Automatic transfer", "The values are sent to Vitaliva via Bluetooth and appear under “Home” and “History”."]}, {"icon": "dashboard", "de": ["Im Vitaliva-Dashboard", "Das Behandlungsteam sieht Blutdruck und Puls sofort im Vitaliva-Dashboard."], "en": ["In the Vitaliva dashboard", "The care team sees blood pressure and pulse right away in the Vitaliva dashboard."]}], "peakflow": [{"icon": "tablet", "de": ["App vorbereiten", "Die App Vitaliva auf Smartphone oder Tablet öffnen. Das Peak-Flow-Meter ist einmalig unter „Devices → Add“ gekoppelt."], "en": ["Prepare the app", "Open the Vitaliva app on your phone or tablet. The peak flow meter is paired once under “Devices → Add”."]}, {"icon": "button", "de": ["Gerät einschalten", "Die Ein/Aus-Taste drücken und warten, bis das Display messbereit ist."], "en": ["Switch on", "Press the on/off button and wait until the display is ready."]}, {"icon": "blow", "de": ["Kräftig ausatmen", "Aufrecht stehen, tief einatmen, das Mundstück fest mit den Lippen umschließen und so schnell und kräftig wie möglich ausatmen."], "en": ["Blow out hard", "Stand up straight, breathe in deeply, seal your lips around the mouthpiece and blow out as hard and fast as you can."]}, {"icon": "display", "de": ["Ergebnis ablesen", "Das Display zeigt den Spitzenfluss (PEF) und die Einsekundenkapazität (FEV1)."], "en": ["Read the result", "The display shows peak expiratory flow (PEF) and FEV1."]}, {"icon": "bluetooth", "de": ["Automatisch übertragen", "Die Werte gehen per Bluetooth an Vitaliva und erscheinen unter „Home“ und „History“."], "en": ["Automatic transfer", "The values are sent to Vitaliva via Bluetooth and appear under “Home” and “History”."]}, {"icon": "dashboard", "de": ["Im Vitaliva-Dashboard", "Das Behandlungsteam sieht PEF und FEV1 sofort im Vitaliva-Dashboard."], "en": ["In the Vitaliva dashboard", "The care team sees PEF and FEV1 right away in the Vitaliva dashboard."]}], "doppler": [{"icon": "tablet", "de": ["App vorbereiten", "Die App Vitaliva auf Smartphone oder Tablet öffnen. Der Doppler ist einmalig unter „Devices → Add“ gekoppelt."], "en": ["Prepare the app", "Open the Vitaliva app on your phone or tablet. The Doppler is paired once under “Devices → Add”."]}, {"icon": "gel", "de": ["Gel auftragen", "Etwas Ultraschallgel auf den unteren Bauch geben."], "en": ["Apply gel", "Put some ultrasound gel on the lower abdomen."]}, {"icon": "probe", "de": ["Schallkopf aufsetzen", "Gerät einschalten, den Schallkopf auf das Gel setzen und langsam bewegen, bis die Herztöne gut zu hören sind."], "en": ["Place the probe", "Switch the device on, place the probe on the gel and move it slowly until the heartbeat is clearly audible."]}, {"icon": "display", "de": ["Herztöne hören", "Über den Lautsprecher sind die Herztöne des Babys zu hören. Die Herzfrequenz erscheint in der App."], "en": ["Listen to the heartbeat", "The baby’s heartbeat can be heard through the speaker. The heart rate appears in the app."]}, {"icon": "bluetooth", "de": ["Automatisch übertragen", "Die Messung geht per Bluetooth an Vitaliva und erscheint unter „Home“ und „History“."], "en": ["Automatic transfer", "The reading is sent to Vitaliva via Bluetooth and appears under “Home” and “History”."]}, {"icon": "dashboard", "de": ["Im Vitaliva-Dashboard", "Das Behandlungsteam sieht die Messung sofort im Vitaliva-Dashboard."], "en": ["In the Vitaliva dashboard", "The care team sees the reading right away in the Vitaliva dashboard."]}]}, "devices": [{"id": "mio", "partner": "MIO", "device": "MIO Blood Glucose Meter", "type": "glucose", "readout": ["108", "mg/dL"], "values_de": "Blutzucker", "values_en": "Blood glucose", "tip_de": "Akku-Gerät: vor der Messe vollständig laden.", "tip_en": "Rechargeable meter: charge it fully before use."}, {"id": "fora", "partner": "ForaCare", "device": "FORA PO200 Pulsoximeter", "type": "spo2", "readout": ["98 %", "PR 72 bpm"], "values_de": "SpO₂, Puls", "values_en": "SpO₂, pulse rate", "tip_de": "Nagellack oder kalte Finger können die Messung stören.", "tip_en": "Nail polish or cold fingers can affect the reading."}, {"id": "oxysmart", "partner": "OXYSMART", "device": "OXYSMART Fingertip-Pulsoximeter", "type": "spo2", "readout": ["97 %", "PR 68 bpm"], "values_de": "SpO₂, Puls", "values_en": "SpO₂, pulse rate", "tip_de": "Nagellack oder kalte Finger können die Messung stören.", "tip_en": "Nail polish or cold fingers can affect the reading."}, {"id": "andesfit", "partner": "Andesfit Health", "device": "Andesfit ADF-B27", "type": "glucose", "readout": ["5.8", "mmol/L"], "values_de": "Blutzucker", "values_en": "Blood glucose", "tip_de": "Einheit (mg/dL oder mmol/L) vorab am Gerät prüfen.", "tip_en": "Check the unit (mg/dL or mmol/L) on the meter beforehand."}, {"id": "aktivmed", "partner": "aktivmed", "device": "GlucoCheck GOLD", "type": "glucose", "readout": ["100", "mg/dL"], "values_de": "Blutzucker", "values_en": "Blood glucose", "tip_de": "Den benutzten Streifen hygienisch per Auswurf-Taste entsorgen.", "tip_en": "Eject the used strip hygienically with the eject button."}, {"id": "fora6duo", "partner": "ForaCare", "device": "FORA 6 Duo", "type": "glucose", "readout": ["92", "mg/dL"], "values_de": "Blutzucker, β-Keton", "values_en": "Blood glucose, β-ketone", "tip_de": "Für Keton-Messungen die eigenen β-Keton-Teststreifen verwenden.", "tip_en": "Use the dedicated β-ketone test strips for ketone readings."}, {"id": "sinocare", "partner": "Sinocare", "device": "Sinocare Safe AQ Air", "type": "glucose", "readout": ["104", "mg/dL"], "values_de": "Blutzucker", "values_en": "Blood glucose", "tip_de": "Keine Kodierung nötig, schon 0,6 µl Blut genügen.", "tip_en": "No coding needed – a 0.6 µl blood sample is enough."}, {"id": "bpb6", "partner": "microlife", "device": "microlife BP B6 Connect", "type": "bp", "readout": ["124/75", "PUL 82"], "values_de": "Blutdruck, Puls", "values_en": "Blood pressure, pulse", "tip_de": "Im MAM-Modus misst das Gerät dreimal hintereinander und erkennt Hinweise auf Vorhofflimmern.", "tip_en": "In MAM mode the monitor measures three times in a row and screens for atrial fibrillation."}, {"id": "ihealth", "partner": "iHealth", "device": "iHealth Track", "type": "bp", "readout": ["124/82", "PUL 75"], "values_de": "Blutdruck, Puls", "values_en": "Blood pressure, pulse", "tip_de": "Die Farbanzeige zeigt die Einstufung nach WHO: grün, gelb oder rot.", "tip_en": "The colour screen shows the WHO classification: green, yellow or red."}, {"id": "pf200", "partner": "microlife", "device": "microlife PF 200 BT", "type": "peakflow", "readout": ["700", "L/min"], "values_de": "PEF, FEV1", "values_en": "PEF, FEV1", "tip_de": "Für jede Person ein eigenes Mundstück verwenden.", "tip_en": "Use a separate mouthpiece for each person."}, {"id": "jpd200s", "partner": "AngelSounds", "device": "AngelSounds JPD-200S", "type": "doppler", "readout": ["142", "bpm"], "values_de": "Fetale Herzfrequenz", "values_en": "Fetal heart rate", "tip_de": "Nur Ultraschallgel verwenden. Der Doppler ersetzt keine Vorsorgeuntersuchung.", "tip_en": "Use ultrasound gel only. The Doppler does not replace prenatal check-ups."}]};
+const T = {
+  de:{tagline:"Geräte-Anleitungen · by Actimi", overviewEyebrow:"MEDICA 2026 · Düsseldorf", overviewTitle:"Ein Gerät, <em>eine</em> App.", overviewLead:"Wählen Sie Ihr Gerät. Jede Anleitung zeigt in sechs Schritten, mit Video und Sprecher, wie die Messwerte über die App Vitaliva beim Behandlungsteam ankommen.",
+      compatible:"Kompatibel mit Vitaliva", values:"Messwerte", video:"Erklärvideo mit Sprecher, rund eine Minute. Auf EN umschalten für die englische Fassung.", steps:"So funktioniert es", tip:"Tipp", back:"← Alle Geräte",
+      foot:"Demo-Anleitung für die MEDICA 2026. Maßgeblich ist die Gebrauchsanweisung des Herstellers. Bei der Messe-Demo verwenden wir für Blutzuckermessgeräte Kontrolllösung statt Blut."},
+  en:{tagline:"Device guides · by Actimi", overviewEyebrow:"MEDICA 2026 · Düsseldorf", overviewTitle:"One device, <em>one</em> app.", overviewLead:"Choose your device. Each guide shows in six steps, with a narrated video, how readings reach the care team through the Vitaliva app.",
+      compatible:"Compatible with Vitaliva", values:"Readings", video:"Explainer video with voice-over, about one minute. Switch to DE for the German version.", steps:"How it works", tip:"Tip", back:"← All devices",
+      foot:"Demo guide for MEDICA 2026. The manufacturer's instructions for use always take precedence. For the trade show demo of blood glucose meters we use control solution instead of blood."}
+};
+let lang = 'de';
+try { lang = localStorage.getItem('actimi-lang') || ((navigator.language||'de').toLowerCase().startsWith('de') ? 'de' : 'en'); } catch(e){ lang = (navigator.language||'de').toLowerCase().startsWith('de') ? 'de' : 'en'; }
+const esc = s => String(s).replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+
+function overview(){
+  const t = T[lang];
+  return `<section><div class="eyebrow">${t.overviewEyebrow}</div><h1>${t.overviewTitle}</h1><p class="lead">${t.overviewLead}</p></section>
+  <section class="grid">${DATA.devices.map(d=>`<a class="card" href="#${d.id}"><img src="${d.id}_${lang}.jpg" alt=""><div><strong>${esc(d.device)}</strong><br><span>${esc(lang==='de'?d.values_de:d.values_en)}</span></div></a>`).join('')}</section>
+  <p class="foot">${t.foot}</p>`;
+}
+function guide(d){
+  const t = T[lang], steps = DATA.templates[d.type];
+  return `<a class="back" href="#start">${t.back}</a>
+  <section><div class="eyebrow">${t.compatible}</div><h1>${esc(d.device)} <em>× Vitaliva</em></h1>
+    <div class="meta"><span class="chip">${esc(d.partner)}</span><span class="chip">${t.values}: ${esc(lang==='de'?d.values_de:d.values_en)}</span><span class="chip">Bluetooth</span></div></section>
+  <section><video id="vid-${d.id}" src="${d.id}_${lang}.mp4" poster="${d.id}_${lang}.jpg" controls playsinline preload="metadata"></video><div class="vcap">${t.video}</div></section>
+  <section><h2>${t.steps}</h2><ol class="steps">${steps.map(s=>`<li><div><h3>${esc(s[lang][0])}</h3><p>${esc(s[lang][1])}</p></div></li>`).join('')}</ol></section>
+  <aside class="tip"><b>${t.tip}</b>${esc(lang==='de'?d.tip_de:d.tip_en)}</aside>
+  <p class="foot">${t.foot}</p>`;
+}
+function render(){
+  document.documentElement.lang = lang;
+  document.querySelectorAll('[data-i]').forEach(el=>{ el.textContent = T[lang][el.dataset.i]; });
+  document.querySelectorAll('.lang button').forEach(b=>b.setAttribute('aria-pressed', String(b.dataset.l===lang)));
+  const id = (location.hash||'').slice(1);
+  const d = DATA.devices.find(x=>x.id===id);
+  document.getElementById('view').innerHTML = d ? guide(d) : overview();
+}
+document.querySelectorAll('.lang button').forEach(b=>b.addEventListener('click',()=>{ lang=b.dataset.l; try{localStorage.setItem('actimi-lang',lang)}catch(e){} render(); }));
+window.addEventListener('hashchange',()=>{ render(); window.scrollTo(0,0); });
+render();
+</script>
+
+</body>
+</html>
