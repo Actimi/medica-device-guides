@@ -215,15 +215,15 @@ function guide(d){
     <div class="chips"><span>${esc(d.partner)}</span><span>${t.values}: ${esc(vals(d))}</span><span>Bluetooth</span></div>
   </div></section>
   <section class="sec"><div class="wrap">
-    <p class="eyebrow">${u.videoEyebrow}</p>
-    <div class="sec-head"><h2>${u.videoTitle}</h2></div>
-    <div class="card player"><video id="vid-${d.id}" src="${d.id}_${lang}.mp4" poster="${d.id}_${lang}.jpg" controls playsinline preload="metadata"></video><div class="vcap">${t.video}</div></div>
-  </div></section>
-  <section class="sec alt"><div class="wrap">
     <p class="eyebrow">${u.stepsEyebrow}</p>
     <div class="sec-head"><h2>${t.steps}</h2></div>
     <div class="grid g3">${steps.map((s,i)=>`<div class="card step"><div class="num">${i+1}</div><h4>${esc(s[lang][0])}</h4><p>${esc(s[lang][1])}</p></div>`).join('')}</div>
     <aside class="tip"><p class="eyebrow">${t.tip}</p><p>${esc(lang==='de'?d.tip_de:d.tip_en)}</p></aside>
+  </div></section>
+  <section class="sec alt"><div class="wrap">
+    <p class="eyebrow">${u.videoEyebrow}</p>
+    <div class="sec-head"><h2>${u.videoTitle}</h2></div>
+    <div class="card player"><video id="vid-${d.id}" src="${d.id}_${lang}.mp4" poster="${d.id}_${lang}.jpg" controls playsinline preload="metadata"></video><div class="vcap">${t.video}</div></div>
   </div></section>
   <section class="sec"><div class="wrap">
     <p class="eyebrow">${u.alsoEyebrow}</p>
