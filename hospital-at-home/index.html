@@ -5,67 +5,150 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="robots" content="noindex">
 <title>Hospital at Home · Actimi</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
-/* Hospital at Home landing page for MEDICA 2026 (eliasactimi.github.io/medica/hospital-at-home/).
-   #start = overview, #<partner-id> = partner page. Device setup guides stay at ../#<partner-id>. */
-:root{--bg:#FBF6ED; --surface:#FFFFFF; --ink:#1F1636; --ink2:#3B2D5A; --ink3:#6A607A; --line:#E9DFCC; --orange:#FF8A47; --orange-text:#C2410C; --magenta:#E72166}
+/* Hospital at Home landing page for MEDICA 2026.
+   #start = overview, #<partner-id> = partner page. Device setup guides stay at ../#<partner-id>.
+   Visual design follows actimi.com: Inter, light grey sections, white 20px cards, dark pill buttons, coral eyebrows. */
+:root{
+  --bg:#F5F4F6; --bg-alt:#ECEAEF; --surface:#FFFFFF;
+  --ink:#1F1636; --ink-2:#241C34; --btn:#1A181D; --muted:#5B5961; --brand-ink:#341E4C;
+  --line:#E7E6EA; --line-2:#D5D4D9;
+  --coral:#EE735F; --red:#E2001A; --ribbon:#C3D8ED;
+  --shadow:0 1px 2px rgba(23,10,37,.04), 0 4px 10px rgba(23,10,37,.05);
+  --shadow-lg:0 4px 10px rgba(23,10,37,.05), 0 20px 46px rgba(23,10,37,.10);
+  --mono:"IBM Plex Mono","SF Mono",ui-monospace,monospace;
+}
 *{box-sizing:border-box}
-html,body{margin:0; background:var(--bg); color:var(--ink); font:16px/1.5 Inter, system-ui, -apple-system, "Segoe UI", sans-serif; -webkit-text-size-adjust:100%}
-.flame{height:4px; background:linear-gradient(90deg,#F29E54,#EC6263 50%,#E72166)}
-.bar{position:sticky; top:0; z-index:5; background:rgba(251,246,237,.94); backdrop-filter:blur(8px); border-bottom:1px solid var(--line)}
-.wrap{max-width:760px; margin:0 auto; padding:0 16px}
-.bar .wrap{display:flex; align-items:center; justify-content:space-between; height:56px}
-.brand{display:flex; align-items:baseline; gap:10px; text-decoration:none; color:var(--ink)}
-.brand b{font-weight:800; letter-spacing:.18em; font-size:15px}
-.brand span{font-size:13px; color:var(--ink3)}
-.ev{font-size:12px; font-weight:700; letter-spacing:.12em; color:var(--orange-text)}
-main{padding:28px 0 56px}
-section{margin:0 0 30px}
-.eyebrow{font-size:12px; font-weight:700; letter-spacing:.14em; text-transform:uppercase; color:var(--orange-text)}
-h1{font-size:clamp(32px,8vw,48px); line-height:1.05; letter-spacing:-.025em; margin:8px 0 6px; font-weight:800}
-h1 em{font-style:normal; color:var(--orange-text)}
-.sub{font-size:13px; font-weight:700; letter-spacing:.2em; text-transform:uppercase; color:var(--ink3); margin:0 0 14px}
-.lead{font-size:18px; color:var(--ink2); margin:0; max-width:36em}
-h2{font-size:22px; letter-spacing:-.01em; margin:0 0 14px}
-.cta{display:flex; flex-direction:column; gap:8px; margin-top:22px; padding:18px; border-radius:16px; background:var(--ink); color:#FFF5E8}
-.cta a.btn, .cta span.btn{display:block; text-align:center; padding:15px 18px; border-radius:12px; font-weight:800; font-size:17px; text-decoration:none; background:linear-gradient(90deg,#F29E54,#EC6263 55%,#E72166); color:#1F1636}
-.cta span.btn{opacity:.55; cursor:default}
-.cta small{color:#C4B3CC; font-size:13px; text-align:center}
-.grid{display:grid; grid-template-columns:1fr; gap:12px}
-@media (min-width:600px){ .grid{grid-template-columns:1fr 1fr} }
-.tile{background:var(--surface); border:1px solid var(--line); border-radius:14px; padding:16px}
-.tile b{display:block; font-size:16px; margin-bottom:4px}
-.tile b i{font-style:normal; color:var(--orange-text); font-size:12px; letter-spacing:.12em; text-transform:uppercase; display:block; margin-bottom:4px}
-.tile p{margin:0; color:var(--ink2); font-size:15px}
-.trust{display:flex; flex-wrap:wrap; gap:8px}
-.trust span{font-size:13px; font-weight:700; padding:6px 11px; border-radius:999px; background:var(--surface); border:1px solid var(--line)}
-.partners{display:grid; grid-template-columns:1fr; gap:10px}
-.partners a{display:flex; justify-content:space-between; align-items:center; gap:12px; text-decoration:none; color:var(--ink); background:var(--surface); border:1px solid var(--line); border-radius:14px; padding:14px 16px}
-.partners a span{font-size:14px; color:var(--ink3)}
-.partners a::after{content:"→"; color:var(--orange-text); font-weight:800}
-.back{display:inline-block; margin-bottom:14px; color:var(--orange-text); text-decoration:none; font-weight:700}
-.foot{font-size:13px; color:var(--ink3); margin-top:26px}
-.guide{display:flex; justify-content:space-between; align-items:center; gap:12px; text-decoration:none; color:var(--ink); background:var(--surface); border:1px solid var(--line); border-radius:14px; padding:14px 16px}
-.guide span{font-size:14px; color:var(--ink3)}
-.guide::after{content:"→"; color:var(--orange-text); font-weight:800}
-.how{counter-reset:h; display:grid; gap:10px}
-.how div{counter-increment:h; display:grid; grid-template-columns:34px 1fr; gap:12px; align-items:start}
-.how div::before{content:counter(h); width:30px; height:30px; border-radius:50%; background:var(--orange); color:#1F1636; font-weight:800; display:grid; place-items:center}
-.how p{margin:3px 0 0; color:var(--ink2); font-size:15px}
-.how b{color:var(--ink)}
-.tag{font-size:20px; font-weight:800; letter-spacing:-.01em; color:var(--ink); margin:0 0 8px}
-.chips{display:flex; flex-wrap:wrap; gap:8px; margin-top:16px}
-.chips span{font-size:13px; font-weight:700; padding:6px 11px; border-radius:999px; background:var(--surface); border:1px solid var(--line); color:var(--ink2)}
-.who{background:var(--surface); border:1px solid var(--line); border-left:4px solid var(--orange); border-radius:14px; padding:16px; margin:0; color:var(--ink2); font-size:16px}
+html,body{margin:0; background:var(--bg); color:var(--ink); font:16px/1.55 Inter, system-ui, -apple-system, "Segoe UI", sans-serif; -webkit-text-size-adjust:100%; -webkit-font-smoothing:antialiased}
+a{color:inherit}
+.wrap{max-width:1160px; margin:0 auto; padding:0 24px}
+@media (max-width:600px){ .wrap{padding:0 16px} }
+
+/* Event ribbon */
+.ribbon{background:var(--ribbon); color:var(--brand-ink); font-size:13px}
+.ribbon .wrap{display:flex; flex-wrap:wrap; align-items:center; justify-content:center; gap:6px 14px; min-height:54px; padding-top:9px; padding-bottom:9px; text-align:center}
+.ribbon b{font-weight:700}
+.ribbon .pin{display:inline-flex; align-items:center; gap:5px; font-weight:700}
+.ribbon .muted{opacity:.85}
+.pill-red{display:inline-block; background:var(--red); color:#fff; font-weight:600; font-size:13px; line-height:18px; padding:9px 18px; border-radius:999px; text-decoration:none}
+
+/* Header */
+.nav{position:sticky; top:0; z-index:10; background:#fff; border-bottom:1px solid var(--line)}
+.nav .wrap{display:flex; align-items:center; justify-content:space-between; height:88px}
+.logo{display:flex; align-items:center; gap:16px; text-decoration:none; color:var(--ink)}
+.logo svg{height:52px; width:auto; display:block}
+.logo span{font-size:14px; font-weight:600; color:var(--ink); padding-left:16px; border-left:1px solid var(--line-2)}
+@media (max-width:600px){ .nav .wrap{height:68px} .logo svg{height:40px} .logo span{font-size:13px; padding-left:12px} }
+
+/* Buttons */
+.btn{display:inline-flex; align-items:center; justify-content:center; gap:10px; border-radius:9999px; font-weight:600; text-transform:uppercase; text-decoration:none; font-size:14px; line-height:1.25; padding:12px 22px; border:1px solid transparent; box-shadow:var(--shadow); white-space:nowrap}
+.btn-sm{font-size:12px; padding:8px 15px}
+.btn-dark{background:var(--btn); color:#fff}
+.btn-light{background:#fff; color:var(--btn); border-color:var(--line-2)}
+.btn-white{background:#fff; color:var(--btn)}
+.btn[aria-disabled="true"]{opacity:.55; cursor:default}
+.btn svg{width:14px; height:14px; flex:none}
+
+/* Hero */
+.hero{position:relative; overflow:hidden; color:#fff; background:
+  radial-gradient(1200px 520px at 85% 30%, rgba(231,33,102,.30), transparent 60%),
+  radial-gradient(900px 480px at 70% 110%, rgba(242,158,84,.22), transparent 60%),
+  linear-gradient(120deg,#17112A 0%,#241A3C 55%,#341E4C 100%)}
+.hero::after{content:""; position:absolute; right:-40px; top:50%; width:520px; height:240px; transform:translateY(-50%); opacity:.35; pointer-events:none;
+  background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 520 240'%3E%3Cpath d='M0 150H150L190 70L240 210L290 20L330 150H520' fill='none' stroke='%23ffffff' stroke-width='3' stroke-linejoin='round'/%3E%3C/svg%3E") no-repeat center/contain}
+.hero .wrap{position:relative; z-index:1; padding-top:88px; padding-bottom:88px}
+.hero .back{display:inline-flex; align-items:center; gap:8px; color:rgba(255,255,255,.75); text-decoration:none; font-size:14px; font-weight:600; margin-bottom:28px}
+.hero .back:hover{color:#fff}
+.eyebrow{font-size:11px; font-weight:600; letter-spacing:.12em; text-transform:uppercase; color:var(--coral); margin:0 0 14px}
+.hero .eyebrow{color:#F5F5F7}
+h1{font-size:clamp(38px,6.4vw,64px); line-height:1.06; letter-spacing:-.025em; font-weight:800; margin:0 0 18px; max-width:14em}
+h1 em{font-style:normal; color:#fff; opacity:.7}
+.hero .tag{font-size:clamp(20px,2.4vw,26px); font-weight:700; letter-spacing:-.015em; margin:0 0 12px; color:#fff}
+.hero .lead{font-size:20px; line-height:1.55; color:rgba(255,255,255,.88); margin:0; max-width:34em}
+@media (max-width:600px){ .hero .wrap{padding-top:56px; padding-bottom:56px} .hero .lead{font-size:18px} .hero::after{display:none} }
+.hero .chips{display:flex; flex-wrap:wrap; gap:8px; margin-top:24px}
+.hero .chips span{font-size:12px; font-weight:600; padding:5px 12px; border-radius:9999px; background:rgba(255,255,255,.12); border:1px solid rgba(255,255,255,.22); color:#fff}
+.hero .actions{display:flex; flex-wrap:wrap; align-items:center; gap:12px 18px; margin-top:32px}
+@media (max-width:600px){ .hero .actions .btn{white-space:normal; width:100%; text-align:center} }
+.hero .actions small{color:rgba(255,255,255,.65); font-size:13px}
+.certs{display:flex; flex-wrap:wrap; align-items:center; gap:10px 18px; margin-top:40px}
+.certs .lbl{font-size:12px; letter-spacing:.06em; text-transform:uppercase; color:rgba(255,255,255,.65); margin-right:4px}
+.certs span.c{display:inline-flex; align-items:center; gap:6px; font-size:12px; font-weight:600; color:#fff}
+.certs span.c svg{width:12px; height:12px}
+
+/* Sections */
+.sec{padding:96px 0}
+.sec.alt{background:var(--bg-alt)}
+@media (max-width:600px){ .sec{padding:64px 0} }
+.sec-head{margin:0 0 40px; max-width:44em}
+.sec-head.center{text-align:center; margin-left:auto; margin-right:auto}
+h2{font-size:clamp(30px,4vw,48px); line-height:1.08; letter-spacing:-.022em; font-weight:700; margin:0; color:var(--ink)}
+.sec-lead{font-size:18px; line-height:1.6; color:var(--muted); margin:14px 0 0}
+
+/* Cards */
+.card{background:var(--surface); border:1px solid var(--line); border-radius:20px; box-shadow:var(--shadow); padding:24px; color:var(--ink); text-decoration:none; display:flex; flex-direction:column}
+a.card{transition:box-shadow .2s, transform .2s}
+a.card:hover{box-shadow:var(--shadow-lg); transform:translateY(-2px)}
+.card h4{font-size:16px; font-weight:600; letter-spacing:-.02em; line-height:1.15; margin:0 0 8px; color:var(--ink)}
+.card p{font-size:14px; line-height:1.55; color:var(--muted); margin:0}
+.card .ico{width:24px; height:24px; margin:0 0 26px; color:var(--coral)}
+.card .ico.c2{color:#2E7DB8} .card .ico.c3{color:#7A3E6A} .card .ico.c4{color:#C26A2B}
+.card .who-lbl{font-size:11px; font-weight:600; letter-spacing:.12em; text-transform:uppercase; color:var(--coral); margin:0 0 6px}
+.more{margin-top:auto; padding-top:16px; font-size:12px; font-weight:600; color:var(--coral); display:inline-flex; align-items:center; gap:6px}
+.more svg{width:11px; height:11px; color:#5B5961}
+.grid{display:grid; gap:16px; grid-template-columns:1fr}
+@media (min-width:640px){ .grid.g2,.grid.g4,.grid.g3{grid-template-columns:1fr 1fr} }
+@media (min-width:980px){ .grid.g4{grid-template-columns:repeat(4,1fr)} .grid.g3{grid-template-columns:repeat(3,1fr)} }
+
+/* Steps */
+.step .num{width:36px; height:36px; border-radius:50%; background:var(--btn); color:#fff; font-weight:700; font-size:15px; display:grid; place-items:center; margin:0 0 22px}
+.step h4{font-size:22px; font-weight:700; letter-spacing:-.02em; margin:0 0 8px}
+.step p{font-size:15px}
+
+/* Split card (who it's for, setup guide) */
+.split{padding:46px; border-radius:20px}
+@media (max-width:600px){ .split{padding:28px} }
+.split .tagline{display:inline-block; font-size:12px; font-weight:600; letter-spacing:.01em; padding:3px 9px; border-radius:9999px; background:var(--bg); color:var(--ink); margin:0 0 18px; align-self:flex-start}
+.split h3{font-size:clamp(22px,2.4vw,28px); line-height:1.1; letter-spacing:-.022em; font-weight:700; margin:0 0 12px}
+.split p{font-size:16px; line-height:1.6}
+.split .row{display:flex; flex-wrap:wrap; align-items:center; justify-content:space-between; gap:16px; margin-top:24px; font-size:12px; color:var(--muted)}
+
+/* Contact */
+.contact{max-width:582px; margin:0 auto; text-align:center; padding:40px 32px; align-items:center}
+.contact h3{font-size:28px; font-weight:700; letter-spacing:-.02em; margin:0 0 6px; color:#1A181D}
+.contact p{font-size:15px; margin:0 0 22px}
+.contact .btns{display:flex; flex-wrap:wrap; gap:10px; justify-content:center}
+
+/* Footer */
+.footer{background:var(--bg); border-top:1px solid var(--line); padding:32px 0 28px; font-family:var(--mono); font-size:12px; letter-spacing:.06em; text-transform:uppercase; color:var(--muted)}
+.footer .wrap{display:flex; flex-wrap:wrap; gap:10px 22px; justify-content:center; text-align:center}
+.footer a{text-decoration:none; color:var(--muted)}
+.footer a:hover{color:var(--ink)}
+.footer .note{flex-basis:100%; text-transform:none; letter-spacing:0; font-family:Inter, system-ui, sans-serif; font-size:12px; opacity:.85}
 </style>
 </head>
 <body>
-<div class="flame"></div>
-<header class="bar"><div class="wrap">
-  <a class="brand" href="#start"><b>ACTIMI</b><span>Hospital at Home</span></a>
-  <span class="ev">MEDICA 2026</span>
+<div class="ribbon"><div class="wrap">
+  <b>Meet us at MEDICA 2026</b>
+  <span class="pin"><svg width="11" height="13" viewBox="0 0 12 16" aria-hidden="true"><path fill="currentColor" d="M6 0a6 6 0 0 0-6 6c0 4.5 6 10 6 10s6-5.5 6-10a6 6 0 0 0-6-6zm0 8.3A2.3 2.3 0 1 1 6 3.7a2.3 2.3 0 0 1 0 4.6z"/></svg>Hall 17 · Booth B22</span>
+  <span class="muted">16–19 November · Düsseldorf</span>
+  <a class="pill-red" href="https://calendar.app.google/3AvESYe6VzKNCo8Q7" target="_blank" rel="noopener">Book a meeting</a>
+</div></div>
+<header class="nav"><div class="wrap">
+  <a class="logo" href="#start" aria-label="Actimi – Hospital at Home"><svg xmlns="http://www.w3.org/2000/svg" viewBox="67 199 852 629" fill="none" role="img"><title>Actimi</title><path d="M512.857 523.948H474.206L493.539 492.028L512.857 460.108L532.19 492.028L551.523 523.948H512.857Z" fill="#EC6263"/><path d="M512.857 523.856H551.523L532.19 555.792L512.857 587.712L493.539 555.792L474.206 523.856H512.857Z" fill="#EA4D63"/><path d="M706.17 587.712H667.504L686.837 555.792L706.17 523.856L725.488 555.792L744.821 587.712H706.17Z" fill="#E72166"/><path d="M667.504 523.856H706.17L686.837 555.792L667.504 587.712L648.187 555.792L628.854 523.856H667.504Z" fill="#E83165"/><path d="M667.504 523.948H628.854L648.187 492.028L667.504 460.108L686.837 492.028L706.17 523.948H667.504Z" fill="#EA4D63"/><path d="M628.852 460.108H667.503L648.185 492.028L628.852 523.948L609.519 492.028L590.202 460.108H628.852Z" fill="#EC6263"/><path d="M628.852 460.203H590.202L609.519 428.284L628.852 396.348L648.185 428.284L667.503 460.203H628.852Z" fill="#EE735F"/><path d="M590.201 396.348H628.852L609.519 428.284L590.201 460.203L570.868 428.284L551.535 396.348H590.201Z" fill="#F0825B"/><path d="M590.201 396.441H551.535L570.868 364.521L590.201 332.602L609.519 364.521L628.852 396.441H590.201Z" fill="#F39356"/><path d="M551.534 332.602H590.2L570.867 364.521L551.534 396.441L532.216 364.521L512.883 332.602H551.534Z" fill="#F6A24B"/><path d="M551.534 332.695H512.883L532.216 300.775L551.534 268.84L570.867 300.775L590.2 332.695H551.534Z" fill="#F7B13C"/><path d="M474.236 332.695H435.585L454.903 300.775L474.236 268.84L493.553 300.775L512.886 332.695H474.236Z" fill="#F7B13C"/><path d="M512.888 268.84H474.237L493.555 236.92L512.888 205L532.221 236.92L551.538 268.84H512.888Z" fill="#F2CC37"/><path d="M512.888 268.84H551.538L532.221 300.775L512.888 332.695L493.555 300.775L474.237 268.84H512.888Z" fill="#EFBE43"/><path d="M435.584 396.441H396.917L416.251 364.521L435.584 332.602L454.901 364.521L474.234 396.441H435.584Z" fill="#F39356"/><path d="M474.236 332.602H512.886L493.553 364.521L474.236 396.441L454.903 364.521L435.585 332.602H474.236Z" fill="#F6A24B"/><path d="M396.917 460.203H358.267L377.6 428.284L396.917 396.348L416.25 428.284L435.583 460.203H396.917Z" fill="#EE735F"/><path d="M435.584 396.348H474.234L454.901 428.284L435.584 460.203L416.251 428.284L396.917 396.348H435.584Z" fill="#F0825B"/><path d="M358.265 523.948H319.615L338.932 492.028L358.265 460.108L377.598 492.028L396.916 523.948H358.265Z" fill="#EA4D63"/><path d="M396.917 460.108H435.583L416.25 492.028L396.917 523.948L377.6 492.028L358.267 460.108H396.917Z" fill="#EC6263"/><path d="M319.619 587.712H280.953L300.286 555.792L319.619 523.856L338.937 555.792L358.27 587.712H319.619Z" fill="#E72166"/><path d="M358.265 523.856H396.916L377.598 555.792L358.265 587.712L338.932 555.792L319.615 523.856H358.265Z" fill="#E83165"/><path d="M474.267 587.712H435.601L454.934 555.792L474.267 523.856L493.585 555.792L512.918 587.712H474.267Z" fill="#E72166"/><path d="M551.518 587.712H512.852L532.185 555.792L551.518 523.856L570.836 555.792L590.169 587.712H551.518Z" fill="#E83165"/><path d="M266.813 784.051C273.499 795.881 283.579 805.432 295.75 811.471C308.234 817.824 322.71 821 339.179 821C361.708 821 379.838 816.329 393.567 806.986V770.785C386.675 776.039 378.892 780.005 370.591 782.494C361.505 785.07 352.094 786.313 342.65 786.184C327.925 786.174 316.479 782.271 308.312 774.475C300.145 766.679 296.061 755.915 296.061 742.181C296.061 728.407 300.103 717.658 308.187 709.935C316.271 702.211 327.754 698.35 342.635 698.35C351.956 698.211 361.25 699.375 370.249 701.807C378.094 704.032 385.422 707.79 391.808 712.862V676.458C384.538 671.81 376.563 668.372 368.194 666.274C358.697 663.971 348.951 662.862 339.179 662.973C322.679 662.973 308.203 666.186 295.75 672.612C283.589 678.715 273.516 688.297 266.813 700.141C260.026 712.078 256.632 726.071 256.632 742.119C256.632 758.167 260.026 772.145 266.813 784.051Z" fill="#341E4C"/><path fill-rule="evenodd" clip-rule="evenodd" d="M172.358 666.275H134.703L73.9956 817.762H113.424L125.566 786.543H181.401L193.59 817.762H232.769L172.358 666.275ZM153.554 706.152L171.968 757.068H134.874L153.554 706.152Z" fill="#341E4C"/><path d="M467.661 698.584H424.979V666.275H548.9V698.584H506V817.793H467.661V698.584Z" fill="#341E4C"/><path d="M624.085 666.275H585.73V817.762H624.085V666.275Z" fill="#341E4C"/><path d="M668.494 666.275H705.323L749.095 760.104L793.147 666.275H829.759V817.762H793.957V741.684L757.781 817.762H740.425L704.421 741.684V817.762H668.494V666.275Z" fill="#341E4C"/><path d="M912.43 666.275H874.091V817.762H912.43V666.275Z" fill="#341E4C"/></svg><span>Hospital at Home</span></a>
+  <a class="btn btn-dark btn-sm" href="https://www.actimi.com/contact#contact-form" target="_blank" rel="noopener"><svg viewBox="0 0 16 12" aria-hidden="true"><path fill="currentColor" d="M0 1.5V12h16V1.5L8 7 0 1.5zM.6 0 8 5.1 15.4 0H.6z"/></svg>Contact</a>
 </div></header>
-<main><div class="wrap" id="view"></div></main>
+<main id="view"></main>
+<footer class="footer"><div class="wrap">
+  <span>© 2026 Actimi GmbH · Stuttgart, Deutschland</span>
+  <a href="https://www.actimi.com" target="_blank" rel="noopener">actimi.com</a>
+  <a href="https://www.actimi.com/contact#contact-form" target="_blank" rel="noopener">Kontakt</a>
+  <span>In Deutschland gehostete Daten · FHIR R4</span>
+  <span class="note" id="foot-note">Demo for MEDICA 2026.</span>
+</div></footer>
 <script>
 const DATA = {"devices": [{"id": "mio", "short": "MIO", "device": "MIO Blood Glucose Meter"}, {"id": "fora", "short": "ForaCare", "device": "FORA PO200 Pulsoximeter"}, {"id": "oxysmart", "short": "OXYSMART", "device": "OXYSMART Fingertip-Pulsoximeter"}, {"id": "andesfit", "short": "Andesfit", "device": "Andesfit ADF-B27"}, {"id": "aktivmed", "short": "aktivmed", "device": "GlucoCheck GOLD"}, {"id": "fora6duo", "short": "ForaCare", "device": "FORA 6 Duo"}, {"id": "sinocare", "short": "Sinocare", "device": "Sinocare Safe AQ Air"}, {"id": "bpb6", "short": "microlife", "device": "microlife BP B6 Connect"}, {"id": "ihealth", "short": "iHealth", "device": "iHealth Track"}, {"id": "pf200", "short": "microlife", "device": "microlife PF 200 BT"}, {"id": "jpd200s", "short": "AngelSounds", "device": "AngelSounds JPD-200S"}]};
 /* Download links for the pre-configured partner apps. Leave null until the link exists:
@@ -233,40 +316,88 @@ const TRUST = ['MDR Class IIa', 'ISO 13485', 'ISO 27001', 'GDPR', 'Hosted in Ger
 const esc = s => String(s).replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
 const devName = d => d.device.replace('Pulsoximeter','Pulse Oximeter').replace('Blutzuckermessgerät','Blood Glucose Meter').replace('Fingertip-Pulse','Fingertip Pulse');
 
+const ARROW = '<svg viewBox="0 0 448 512" aria-hidden="true"><path fill="currentColor" d="M190.5 66.9l22.2-22.2c9.4-9.4 24.6-9.4 33.9 0L441 239c9.4 9.4 9.4 24.6 0 33.9L246.6 467.3c-9.4 9.4-24.6 9.4-33.9 0l-22.2-22.2c-9.5-9.5-9.3-25 .4-34.3L311.4 296H24c-13.3 0-24-10.7-24-24v-32c0-13.3 10.7-24 24-24h287.4L190.9 101.2c-9.8-9.3-10-24.8-.4-34.3z"/></svg>';
+const CHECK = '<svg viewBox="0 0 16 16" aria-hidden="true"><circle cx="8" cy="8" r="8" fill="currentColor" opacity=".25"/><path d="M4.5 8.2l2.2 2.2 4.8-4.8" fill="none" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+/* Simple line icons for the four audiences, in the style of the actimi.com tiles. */
+const ICONS = [
+  '<svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 11l9-7 9 7"/><path d="M5 10v10h14V10"/><path d="M10 20v-5h4v5"/></svg>',
+  '<svg class="ico c2" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 3v6a4 4 0 0 0 8 0V3"/><path d="M10 13v2a5 5 0 0 0 10 0v-2"/><circle cx="20" cy="11" r="2"/></svg>',
+  '<svg class="ico c3" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="3" width="16" height="18" rx="1"/><path d="M12 7v6M9 10h6"/><path d="M10 21v-4h4v4"/></svg>',
+  '<svg class="ico c4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 20s-7-4.4-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 10c0 5.6-7 10-7 10z"/></svg>',
+];
+const BOOK = 'https://calendar.app.google/3AvESYe6VzKNCo8Q7';
+const CONTACT = 'https://www.actimi.com/contact#contact-form';
+
+function certs(){
+  return `<div class="certs"><span class="lbl">Certified and secure</span>${TRUST.map(t=>`<span class="c">${CHECK}${esc(t)}</span>`).join('')}</div>`;
+}
+function head(title, lead){
+  return `<div class="sec-head"><h2>${title}</h2>${lead ? `<p class="sec-lead">${lead}</p>` : ''}</div>`;
+}
 function benefits(d){
   const p = d && PARTNER[d.id];
   const how = p ? HOW.map((h,i)=>[h[0], p.how[i]]) : HOW;
   const tiles = p ? BENEFITS.map((b,i)=>[b[0], p.tiles[i][0], p.tiles[i][1]]) : BENEFITS;
-  return `<section><h2>${p ? `How it works with the ${esc(devName(d))}` : 'How it works'}</h2><div class="how">${how.map(h=>`<div><p><b>${h[0]}.</b> ${esc(h[1])}</p></div>`).join('')}</div></section>
-  <section><h2>${p ? `What ${esc(d.short)} × Actimi brings` : 'Why Hospital at Home'}</h2><div class="grid">${tiles.map(b=>`<div class="tile"><b><i>${b[0]}</i>${esc(b[1])}</b><p>${esc(b[2])}</p></div>`).join('')}</div></section>
-  <section><h2>Certified and secure</h2><div class="trust">${TRUST.map(t=>`<span>${t}</span>`).join('')}</div></section>`;
+  return `<section class="sec alt"><div class="wrap">
+    <p class="eyebrow">How it works</p>
+    ${head(p ? `Three steps with the ${esc(devName(d))}` : 'Measure. Review. Act.')}
+    <div class="grid g3">${how.map((h,i)=>`<div class="card step"><div class="num">${i+1}</div><h4>${esc(h[0])}</h4><p>${esc(h[1])}</p></div>`).join('')}</div>
+  </div></section>
+  <section class="sec"><div class="wrap">
+    <p class="eyebrow">Benefits for every stakeholder</p>
+    ${head(p ? `What ${esc(d.short)} × Actimi brings` : 'Why Hospital at Home')}
+    <div class="grid g4">${tiles.map((b,i)=>`<div class="card">${ICONS[i]}<p class="who-lbl">${esc(b[0])}</p><h4>${esc(b[1])}</h4><p>${esc(b[2])}</p></div>`).join('')}</div>
+  </div></section>`;
+}
+function contact(){
+  return `<section class="sec alt"><div class="wrap">
+    <div class="sec-head center"><h2>Talk to us at MEDICA.</h2><p class="sec-lead">Live demo, pricing or integration questions – visit us in Düsseldorf or book a slot with the Actimi team.</p></div>
+    <div class="card contact"><h3>Hall 17 · Booth B22</h3><p>MEDICA 2026 · 16–19 November · Düsseldorf</p>
+      <div class="btns"><a class="btn btn-dark" href="${BOOK}" target="_blank" rel="noopener">${ARROW}Book a meeting</a><a class="btn btn-light" href="${CONTACT}" target="_blank" rel="noopener">Contact Actimi</a></div></div>
+  </div></section>`;
 }
 function overview(){
-  return `<section><div class="eyebrow">MEDICA 2026 · Düsseldorf · Hall 17, Booth B22</div>
-    <h1>Hospital at Home <em>by Actimi</em></h1>
-    <p class="lead">Your patients measure at home. Practitioners and clinics see the readings in real time – on one certified platform.</p></section>
+  return `<section class="hero"><div class="wrap">
+    <p class="eyebrow">MEDICA 2026 · Düsseldorf · Hall 17, Booth B22</p>
+    <h1>Hospital at Home. Digitally connected.</h1>
+    <p class="lead">Your patients measure at home. Practitioners and clinics see the readings in real time – on one certified platform.</p>
+    ${certs()}
+  </div></section>
   ${benefits()}
-  <section><h2>Our partners at MEDICA</h2><div class="partners">${DATA.devices.map(d=>`<a href="#${d.id}"><div><strong>${esc(d.short)} × Actimi</strong><br><span>${esc(devName(d))} · ${esc(PARTNER[d.id].tagline)}</span></div></a>`).join('')}</div></section>
-  <p class="foot">Actimi GmbH · Stuttgart · <a href="https://actimi.com" style="color:inherit">actimi.com</a></p>`;
+  <section class="sec alt"><div class="wrap">
+    <p class="eyebrow">Partners at MEDICA</p>
+    ${head('Hospital at Home with our device partners', 'Pick a partner to see who it’s for, how it works and how to set up the device.')}
+    <div class="grid g3">${DATA.devices.map(d=>`<a class="card" href="#${d.id}"><p class="who-lbl">${esc(d.short)} × Actimi</p><h4>${esc(devName(d))}</h4><p>${esc(PARTNER[d.id].tagline)}</p><span class="more">Learn more ${ARROW}</span></a>`).join('')}</div>
+  </div></section>
+  ${contact().replace('sec alt','sec')}`;
 }
 function partner(d){
   const p = PARTNER[d.id], app = `${d.short} Hospital at Home app`, link = APP_LINKS[d.id];
-  const btn = link ? `<a class="btn" href="${esc(link)}">Download the ${esc(app)}</a><small>For iPhone and Android</small>`
-                   : `<span class="btn" aria-disabled="true">Download the ${esc(app)}</span><small>Download link coming soon – ask us at MEDICA, Hall 17, Booth B22.</small>`;
-  return `<a class="back" href="#start">← Hospital at Home</a>
-  <section><div class="eyebrow">MEDICA 2026</div><h1>${esc(d.short)} <em>× Actimi</em></h1><p class="sub">Hospital at Home</p>
+  const btn = link ? `<a class="btn btn-white" href="${esc(link)}">${ARROW}Download the ${esc(app)}</a><small>For iPhone and Android</small>`
+                   : `<span class="btn btn-white" aria-disabled="true">Download the ${esc(app)}</span><small>Download link coming soon – ask us at MEDICA, Hall 17, Booth B22.</small>`;
+  return `<section class="hero"><div class="wrap">
+    <a class="back" href="#start">← Hospital at Home</a>
+    <p class="eyebrow">MEDICA 2026 · Hospital at Home</p>
+    <h1>${esc(d.short)} <em>× Actimi</em></h1>
     <p class="tag">${esc(p.tagline)}</p>
     <p class="lead">${esc(p.lead)}</p>
     <div class="chips"><span>${esc(devName(d))}</span>${p.chips.map(c=>`<span>${esc(c)}</span>`).join('')}</div>
-    <div class="cta">${btn}</div></section>
-  <section><h2>Who it’s for</h2><p class="who">${esc(p.who)}</p></section>
+    <div class="actions">${btn}</div>
+    ${certs()}
+  </div></section>
+  <section class="sec"><div class="wrap">
+    <div class="grid g2">
+      <div class="card split"><span class="tagline">Who it’s for</span><h3>${esc(p.tagline)}</h3><p>${esc(p.who)}</p></div>
+      <a class="card split" href="../#${d.id}"><span class="tagline">Set up your device</span><h3>${esc(devName(d))} – setup guide</h3><p>Narrated video and 6 steps: pairing, measuring, sending readings.</p><div class="row"><span>About 1 minute · DE / EN</span><span class="more" style="padding:0">Open guide ${ARROW}</span></div></a>
+    </div>
+  </div></section>
   ${benefits(d)}
-  <section><h2>Set up your device</h2><a class="guide" href="../#${d.id}"><div><strong>${esc(devName(d))} – setup guide</strong><br><span>Video and 6 steps: pairing, measuring, sending readings</span></div></a></section>
-  <p class="foot">Demo for MEDICA 2026. Always follow the manufacturer’s instructions for use. Actimi GmbH · <a href="https://actimi.com" style="color:inherit">actimi.com</a></p>`;
+  ${contact()}`;
 }
 function render(){
   const d = DATA.devices.find(x => x.id === (location.hash||'').slice(1));
   document.getElementById('view').innerHTML = d ? partner(d) : overview();
+  document.getElementById('foot-note').textContent = d ? 'Demo for MEDICA 2026. Always follow the manufacturer’s instructions for use.' : 'Demo for MEDICA 2026.';
   document.title = d ? `${d.short} × Actimi · Hospital at Home` : 'Hospital at Home · Actimi';
 }
 window.addEventListener('hashchange', () => { render(); window.scrollTo(0,0); });
