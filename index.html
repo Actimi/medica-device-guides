@@ -6,77 +6,154 @@
 <meta name="robots" content="noindex">
 <title>Vitaliva Geräte-Anleitungen</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
-/* Layout: single mobile column; a sticky brand bar with language switch, then either the device overview or one device guide (video, numbered steps, tip). */
+/* Device guides for MEDICA 2026. #start = device overview, #<device-id> = one guide (video, six steps, tip).
+   Visual design follows actimi.com: Inter, light grey sections, white 20px cards, dark pill buttons, coral eyebrows. */
 :root{
-  --bg:#FBF6ED; --bg2:#F5EDDD; --surface:#FFFFFF; --ink:#1F1636; --ink2:#3B2D5A; --ink3:#6A607A; --ink4:#9C95A8;
-  --line:rgba(52,30,76,.12); --orange:#FF8A47; --magenta:#E72166; --amber:#F29E54; --coral:#EC6263;
-  --paper:#1F1636; --paper-ink:#FFF5E8; --paper-ink2:#C4B3CC; --accent-text:#C2410C;
-  --f-display:"Instrument Serif", Georgia, "Times New Roman", serif;
-  --f-body:Inter, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --bg:#F5F4F6; --bg-alt:#ECEAEF; --surface:#FFFFFF;
+  --ink:#1F1636; --btn:#1A181D; --muted:#5B5961; --brand-ink:#341E4C;
+  --line:#E7E6EA; --line-2:#D5D4D9;
+  --coral:#EE735F; --red:#E2001A; --ribbon:#C3D8ED;
+  --shadow:0 1px 2px rgba(23,10,37,.04), 0 4px 10px rgba(23,10,37,.05);
+  --shadow-lg:0 4px 10px rgba(23,10,37,.05), 0 20px 46px rgba(23,10,37,.10);
+  --mono:"IBM Plex Mono","SF Mono",ui-monospace,monospace;
 }
-@media (prefers-color-scheme: dark){ :root:not([data-theme="light"]){
-  --bg:#221836; --bg2:#2A1F44; --surface:#322550; --ink:#FFF5E8; --ink2:#F0DDC0; --ink3:#C4B3CC; --ink4:#7E6F96;
-  --line:rgba(255,245,232,.12); --paper:#3A2C60; --paper-ink:#FFF5E8; --paper-ink2:#C4B3CC; --accent-text:#FF8A47; color-scheme:dark } }
-:root[data-theme="dark"]{
-  --bg:#221836; --bg2:#2A1F44; --surface:#322550; --ink:#FFF5E8; --ink2:#F0DDC0; --ink3:#C4B3CC; --ink4:#7E6F96;
-  --line:rgba(255,245,232,.12); --paper:#3A2C60; --paper-ink:#FFF5E8; --paper-ink2:#C4B3CC; --accent-text:#FF8A47; color-scheme:dark }
 *{box-sizing:border-box}
-body{background:var(--bg); color:var(--ink); font-family:var(--f-body); font-size:16px; line-height:1.55; -webkit-font-smoothing:antialiased}
-body::before{content:""; position:fixed; inset:0 0 auto; height:env(safe-area-inset-top,0px); z-index:10; background:var(--bg)}
-.flame{height:5px; background:linear-gradient(90deg,var(--amber),var(--coral) 50%,var(--magenta))}
-.bar{position:sticky; top:env(safe-area-inset-top,0px); z-index:5; background:color-mix(in srgb,var(--bg) 92%,transparent); backdrop-filter:blur(8px); border-bottom:1px solid var(--line)}
-.wrap{max-width:720px; margin:0 auto; padding-left:max(16px,env(safe-area-inset-left,0px)); padding-right:max(16px,env(safe-area-inset-right,0px))}
-.bar .wrap{display:flex; align-items:center; justify-content:space-between; gap:12px; padding-block:12px}
-.brand{display:flex; align-items:baseline; gap:10px; text-decoration:none; color:var(--ink)}
-.brand b{font-weight:700; letter-spacing:.14em; font-size:15px}
-.brand span{font-size:12px; letter-spacing:.08em; text-transform:uppercase; color:var(--ink3)}
-.lang{display:flex; border:1px solid var(--line); border-radius:999px; padding:3px; background:var(--surface)}
-.lang button{font:600 13px/1 var(--f-body); border:0; background:transparent; color:var(--ink3); padding:7px 12px; border-radius:999px; cursor:pointer}
-.lang button[aria-pressed="true"]{background:var(--ink); color:var(--bg)}
-button:focus-visible,a:focus-visible{outline:3px solid var(--orange); outline-offset:2px}
-main .wrap{padding-block:28px 48px; display:flex; flex-direction:column; gap:28px}
-.eyebrow{font-size:12px; font-weight:600; letter-spacing:.12em; text-transform:uppercase; color:var(--accent-text)}
-h1{font-family:var(--f-display); font-weight:400; font-size:clamp(40px,10vw,60px); line-height:1.02; margin:6px 0 0; text-wrap:balance; letter-spacing:-.01em}
-h1 em{font-style:italic; color:var(--accent-text)}
-.lead{color:var(--ink2); margin:12px 0 0; max-width:60ch}
-.meta{display:flex; flex-wrap:wrap; gap:8px; margin-top:16px}
-.chip{font-size:13px; padding:5px 11px; border-radius:999px; background:var(--bg2); color:var(--ink2); border:1px solid var(--line)}
-video{width:100%; max-width:100%; aspect-ratio:16/9; display:block; border-radius:14px; background:var(--paper); box-shadow:0 20px 50px -20px rgba(31,22,54,.28)}
-.vcap{font-size:13px; color:var(--ink3); margin-top:8px}
-h2{font-family:var(--f-display); font-weight:400; font-size:32px; line-height:1.1; margin:0}
-ol.steps{list-style:none; margin:16px 0 0; padding:0; display:flex; flex-direction:column; gap:10px; counter-reset:s}
-ol.steps li{counter-increment:s; display:grid; grid-template-columns:40px 1fr; gap:14px; align-items:start; background:var(--surface); border:1px solid var(--line); border-radius:12px; padding:16px}
-ol.steps li::before{content:counter(s); width:34px; height:34px; border-radius:50%; background:var(--orange); color:#1F1636; font-weight:700; display:grid; place-items:center; font-variant-numeric:tabular-nums}
-ol.steps li div{min-width:0}
-ol.steps h3{margin:4px 0 2px; font-size:17px; font-weight:700}
-ol.steps p{margin:0; color:var(--ink2)}
-.tip{background:var(--paper); color:var(--paper-ink); border-radius:14px; padding:18px 20px}
-.tip b{display:block; font-size:12px; letter-spacing:.12em; text-transform:uppercase; color:var(--orange); margin-bottom:4px}
-.foot{font-size:13px; color:var(--ink3); border-top:1px solid var(--line); padding-top:16px}
-.back{font-weight:600; color:var(--accent-text); text-decoration:none}
-.grid{display:grid; grid-template-columns:repeat(auto-fill,minmax(200px,1fr)); gap:12px}
-.card{display:flex; flex-direction:column; gap:10px; text-decoration:none; color:var(--ink); background:var(--surface); border:1px solid var(--line); border-radius:14px; padding:12px; transition:transform .15s ease}
-.card:hover{transform:translateY(-2px)}
-.card img{border-radius:9px; aspect-ratio:16/9; object-fit:cover; width:100%}
-.card strong{font-size:16px}
-.card span{font-size:13px; color:var(--ink3)}
-@media (prefers-reduced-motion: reduce){ .card{transition:none} .card:hover{transform:none} }
+html,body{margin:0; background:var(--bg); color:var(--ink); font:16px/1.55 Inter, system-ui, -apple-system, "Segoe UI", sans-serif; -webkit-text-size-adjust:100%; -webkit-font-smoothing:antialiased}
+a{color:inherit}
+button:focus-visible,a:focus-visible{outline:3px solid var(--coral); outline-offset:2px}
+.wrap{max-width:1160px; margin:0 auto; padding-left:max(24px,env(safe-area-inset-left,0px)); padding-right:max(24px,env(safe-area-inset-right,0px))}
+@media (max-width:600px){ .wrap{padding-left:max(16px,env(safe-area-inset-left,0px)); padding-right:max(16px,env(safe-area-inset-right,0px))} }
+
+/* Event ribbon */
+.ribbon{background:var(--ribbon); color:var(--brand-ink); font-size:13px}
+.ribbon .wrap{display:flex; flex-wrap:wrap; align-items:center; justify-content:center; gap:6px 14px; min-height:54px; padding-top:9px; padding-bottom:9px; text-align:center}
+.ribbon b{font-weight:700}
+.ribbon .pin{display:inline-flex; align-items:center; gap:5px; font-weight:700}
+.ribbon .muted{opacity:.85}
+.pill-red{display:inline-block; background:var(--red); color:#fff; font-weight:600; font-size:13px; line-height:18px; padding:9px 18px; border-radius:999px; text-decoration:none}
+
+/* Header */
+.nav{position:sticky; top:0; z-index:10; background:#fff; border-bottom:1px solid var(--line)}
+.nav .wrap{display:flex; align-items:center; justify-content:space-between; gap:12px; height:88px}
+.logo{display:flex; align-items:center; gap:16px; text-decoration:none; color:var(--ink); min-width:0}
+.logo svg{height:52px; width:auto; display:block; flex:none}
+.logo span{font-size:14px; font-weight:600; color:var(--ink); padding-left:16px; border-left:1px solid var(--line-2); white-space:nowrap}
+.nav-right{display:flex; align-items:center; gap:12px}
+.lang{display:flex; border:1px solid var(--line-2); border-radius:9999px; padding:3px; background:#fff}
+.lang button{font:600 12px/1 Inter, system-ui, sans-serif; border:0; background:transparent; color:var(--muted); padding:8px 12px; border-radius:9999px; cursor:pointer}
+.lang button[aria-pressed="true"]{background:var(--btn); color:#fff}
+@media (max-width:600px){ .nav .wrap{height:68px} .logo{gap:12px} .logo svg{height:40px} .logo span{font-size:13px; padding-left:12px} .nav .btn-contact{display:none} }
+
+/* Buttons */
+.btn{display:inline-flex; align-items:center; justify-content:center; gap:10px; border-radius:9999px; font-weight:600; text-transform:uppercase; text-decoration:none; font-size:14px; line-height:1.25; padding:12px 22px; border:1px solid transparent; box-shadow:var(--shadow); white-space:nowrap}
+.btn-sm{font-size:12px; padding:8px 15px}
+.btn-dark{background:var(--btn); color:#fff}
+.btn-light{background:#fff; color:var(--btn); border-color:var(--line-2)}
+.btn svg{width:14px; height:14px; flex:none}
+
+/* Hero */
+.hero{position:relative; overflow:hidden; color:#fff; background:
+  radial-gradient(1200px 520px at 85% 30%, rgba(231,33,102,.30), transparent 60%),
+  radial-gradient(900px 480px at 70% 110%, rgba(242,158,84,.22), transparent 60%),
+  linear-gradient(120deg,#17112A 0%,#241A3C 55%,#341E4C 100%)}
+.hero::after{content:""; position:absolute; right:-40px; top:50%; width:520px; height:240px; transform:translateY(-50%); opacity:.35; pointer-events:none;
+  background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 520 240'%3E%3Cpath d='M0 150H150L190 70L240 210L290 20L330 150H520' fill='none' stroke='%23ffffff' stroke-width='3' stroke-linejoin='round'/%3E%3C/svg%3E") no-repeat center/contain}
+.hero .wrap{position:relative; z-index:1; padding-top:88px; padding-bottom:88px}
+.hero .back{display:inline-flex; align-items:center; gap:8px; color:rgba(255,255,255,.75); text-decoration:none; font-size:14px; font-weight:600; margin-bottom:28px}
+.hero .back:hover{color:#fff}
+.eyebrow{font-size:11px; font-weight:600; letter-spacing:.12em; text-transform:uppercase; color:var(--coral); margin:0 0 14px}
+.hero .eyebrow{color:#F5F5F7}
+h1{font-size:clamp(38px,6.4vw,64px); line-height:1.06; letter-spacing:-.025em; font-weight:800; margin:0 0 18px; max-width:15em; text-wrap:balance}
+h1 em{font-style:normal; color:#fff; opacity:.7}
+.hero .lead{font-size:20px; line-height:1.55; color:rgba(255,255,255,.88); margin:0; max-width:34em}
+@media (max-width:600px){ .hero .wrap{padding-top:56px; padding-bottom:56px} .hero .lead{font-size:18px} .hero::after{display:none} }
+.hero .chips{display:flex; flex-wrap:wrap; gap:8px; margin-top:8px}
+.hero .chips span{font-size:12px; font-weight:600; padding:5px 12px; border-radius:9999px; background:rgba(255,255,255,.12); border:1px solid rgba(255,255,255,.22); color:#fff}
+.certs{display:flex; flex-wrap:wrap; align-items:center; gap:10px 18px; margin-top:40px}
+.certs .lbl{font-size:12px; letter-spacing:.06em; text-transform:uppercase; color:rgba(255,255,255,.65); margin-right:4px}
+.certs span.c{display:inline-flex; align-items:center; gap:6px; font-size:12px; font-weight:600; color:#fff}
+.certs span.c svg{width:12px; height:12px}
+
+/* Sections */
+.sec{padding:96px 0}
+.sec.alt{background:var(--bg-alt)}
+.sec.tight{padding-top:0}
+@media (max-width:600px){ .sec{padding:64px 0} }
+.sec-head{margin:0 0 40px; max-width:44em}
+h2{font-size:clamp(30px,4vw,48px); line-height:1.08; letter-spacing:-.022em; font-weight:700; margin:0; color:var(--ink)}
+.sec-lead{font-size:18px; line-height:1.6; color:var(--muted); margin:14px 0 0}
+
+/* Cards */
+.card{background:var(--surface); border:1px solid var(--line); border-radius:20px; box-shadow:var(--shadow); padding:24px; color:var(--ink); text-decoration:none; display:flex; flex-direction:column}
+a.card{transition:box-shadow .2s, transform .2s}
+a.card:hover{box-shadow:var(--shadow-lg); transform:translateY(-2px)}
+@media (prefers-reduced-motion: reduce){ a.card{transition:none} a.card:hover{transform:none} }
+.card h4{font-size:16px; font-weight:600; letter-spacing:-.02em; line-height:1.2; margin:0 0 8px; color:var(--ink)}
+.card p{font-size:14px; line-height:1.55; color:var(--muted); margin:0}
+.card .who-lbl{font-size:11px; font-weight:600; letter-spacing:.12em; text-transform:uppercase; color:var(--coral); margin:0 0 6px}
+.more{margin-top:auto; padding-top:16px; font-size:12px; font-weight:600; color:var(--coral); display:inline-flex; align-items:center; gap:6px}
+.more svg{width:11px; height:11px; color:#5B5961}
+.grid{display:grid; gap:16px; grid-template-columns:1fr}
+@media (min-width:640px){ .grid.g3,.grid.g2{grid-template-columns:1fr 1fr} }
+@media (min-width:980px){ .grid.g3{grid-template-columns:repeat(3,1fr)} }
+
+/* Device cards with poster */
+.dev{padding:0; overflow:hidden}
+.dev img{display:block; width:100%; aspect-ratio:16/9; object-fit:cover; background:var(--bg-alt); border-bottom:1px solid var(--line)}
+.dev .body{padding:20px 24px 22px; display:flex; flex-direction:column; flex:1}
+
+/* Video */
+.player{padding:12px; border-radius:20px}
+video{width:100%; aspect-ratio:16/9; display:block; border-radius:12px; background:#17112A}
+.vcap{font-size:13px; color:var(--muted); margin:12px 4px 2px}
+
+/* Steps */
+.step .num{width:36px; height:36px; border-radius:50%; background:var(--btn); color:#fff; font-weight:700; font-size:15px; display:grid; place-items:center; margin:0 0 22px; font-variant-numeric:tabular-nums}
+.step h4{font-size:20px; font-weight:700; letter-spacing:-.02em; margin:0 0 8px}
+.step p{font-size:15px}
+
+/* Tip */
+.tip{margin-top:24px; padding:32px 36px; border-radius:20px; color:#fff; background:linear-gradient(120deg,#17112A 0%,#241A3C 60%,#341E4C 100%); box-shadow:var(--shadow)}
+.tip .eyebrow{color:var(--coral); margin-bottom:8px}
+.tip p{margin:0; font-size:17px; line-height:1.6; color:rgba(255,255,255,.9); max-width:48em}
+@media (max-width:600px){ .tip{padding:24px} }
+
+/* Footer */
+.footer{background:var(--bg); border-top:1px solid var(--line); padding:32px 0 28px; font-family:var(--mono); font-size:12px; letter-spacing:.06em; text-transform:uppercase; color:var(--muted)}
+.footer .wrap{display:flex; flex-wrap:wrap; gap:10px 22px; justify-content:center; text-align:center}
+.footer a{text-decoration:none; color:var(--muted)}
+.footer a:hover{color:var(--ink)}
+.footer .note{flex-basis:100%; text-transform:none; letter-spacing:0; font-family:Inter, system-ui, sans-serif; font-size:12px; opacity:.85; max-width:60em; margin:0 auto}
 </style>
 </head>
 <body>
-
-<div class="flame"></div>
-<header class="bar"><div class="wrap">
-  <a class="brand" href="#start"><b>VITALIVA</b><span data-i="tagline">Geräte-Anleitungen</span></a>
-  <div class="lang" role="group" aria-label="Sprache / Language">
-    <button id="lang-de" type="button" data-l="de">DE</button>
-    <button id="lang-en" type="button" data-l="en">EN</button>
+<div class="ribbon"><div class="wrap">
+  <b data-u="ribbon">Besuchen Sie uns auf der MEDICA 2026</b>
+  <span class="pin"><svg width="11" height="13" viewBox="0 0 12 16" aria-hidden="true"><path fill="currentColor" d="M6 0a6 6 0 0 0-6 6c0 4.5 6 10 6 10s6-5.5 6-10a6 6 0 0 0-6-6zm0 8.3A2.3 2.3 0 1 1 6 3.7a2.3 2.3 0 0 1 0 4.6z"/></svg><span data-u="booth">Halle 17 · Stand B22</span></span>
+  <span class="muted" data-u="dates">16.–19. November · Düsseldorf</span>
+  <a class="pill-red" href="https://calendar.app.google/3AvESYe6VzKNCo8Q7" target="_blank" rel="noopener" data-u="book">Termin buchen</a>
+</div></div>
+<header class="nav"><div class="wrap">
+  <a class="logo" href="#start" aria-label="Actimi"><svg xmlns="http://www.w3.org/2000/svg" viewBox="67 199 852 629" fill="none" role="img"><title>Actimi</title><path d="M512.857 523.948H474.206L493.539 492.028L512.857 460.108L532.19 492.028L551.523 523.948H512.857Z" fill="#EC6263"/><path d="M512.857 523.856H551.523L532.19 555.792L512.857 587.712L493.539 555.792L474.206 523.856H512.857Z" fill="#EA4D63"/><path d="M706.17 587.712H667.504L686.837 555.792L706.17 523.856L725.488 555.792L744.821 587.712H706.17Z" fill="#E72166"/><path d="M667.504 523.856H706.17L686.837 555.792L667.504 587.712L648.187 555.792L628.854 523.856H667.504Z" fill="#E83165"/><path d="M667.504 523.948H628.854L648.187 492.028L667.504 460.108L686.837 492.028L706.17 523.948H667.504Z" fill="#EA4D63"/><path d="M628.852 460.108H667.503L648.185 492.028L628.852 523.948L609.519 492.028L590.202 460.108H628.852Z" fill="#EC6263"/><path d="M628.852 460.203H590.202L609.519 428.284L628.852 396.348L648.185 428.284L667.503 460.203H628.852Z" fill="#EE735F"/><path d="M590.201 396.348H628.852L609.519 428.284L590.201 460.203L570.868 428.284L551.535 396.348H590.201Z" fill="#F0825B"/><path d="M590.201 396.441H551.535L570.868 364.521L590.201 332.602L609.519 364.521L628.852 396.441H590.201Z" fill="#F39356"/><path d="M551.534 332.602H590.2L570.867 364.521L551.534 396.441L532.216 364.521L512.883 332.602H551.534Z" fill="#F6A24B"/><path d="M551.534 332.695H512.883L532.216 300.775L551.534 268.84L570.867 300.775L590.2 332.695H551.534Z" fill="#F7B13C"/><path d="M474.236 332.695H435.585L454.903 300.775L474.236 268.84L493.553 300.775L512.886 332.695H474.236Z" fill="#F7B13C"/><path d="M512.888 268.84H474.237L493.555 236.92L512.888 205L532.221 236.92L551.538 268.84H512.888Z" fill="#F2CC37"/><path d="M512.888 268.84H551.538L532.221 300.775L512.888 332.695L493.555 300.775L474.237 268.84H512.888Z" fill="#EFBE43"/><path d="M435.584 396.441H396.917L416.251 364.521L435.584 332.602L454.901 364.521L474.234 396.441H435.584Z" fill="#F39356"/><path d="M474.236 332.602H512.886L493.553 364.521L474.236 396.441L454.903 364.521L435.585 332.602H474.236Z" fill="#F6A24B"/><path d="M396.917 460.203H358.267L377.6 428.284L396.917 396.348L416.25 428.284L435.583 460.203H396.917Z" fill="#EE735F"/><path d="M435.584 396.348H474.234L454.901 428.284L435.584 460.203L416.251 428.284L396.917 396.348H435.584Z" fill="#F0825B"/><path d="M358.265 523.948H319.615L338.932 492.028L358.265 460.108L377.598 492.028L396.916 523.948H358.265Z" fill="#EA4D63"/><path d="M396.917 460.108H435.583L416.25 492.028L396.917 523.948L377.6 492.028L358.267 460.108H396.917Z" fill="#EC6263"/><path d="M319.619 587.712H280.953L300.286 555.792L319.619 523.856L338.937 555.792L358.27 587.712H319.619Z" fill="#E72166"/><path d="M358.265 523.856H396.916L377.598 555.792L358.265 587.712L338.932 555.792L319.615 523.856H358.265Z" fill="#E83165"/><path d="M474.267 587.712H435.601L454.934 555.792L474.267 523.856L493.585 555.792L512.918 587.712H474.267Z" fill="#E72166"/><path d="M551.518 587.712H512.852L532.185 555.792L551.518 523.856L570.836 555.792L590.169 587.712H551.518Z" fill="#E83165"/><path d="M266.813 784.051C273.499 795.881 283.579 805.432 295.75 811.471C308.234 817.824 322.71 821 339.179 821C361.708 821 379.838 816.329 393.567 806.986V770.785C386.675 776.039 378.892 780.005 370.591 782.494C361.505 785.07 352.094 786.313 342.65 786.184C327.925 786.174 316.479 782.271 308.312 774.475C300.145 766.679 296.061 755.915 296.061 742.181C296.061 728.407 300.103 717.658 308.187 709.935C316.271 702.211 327.754 698.35 342.635 698.35C351.956 698.211 361.25 699.375 370.249 701.807C378.094 704.032 385.422 707.79 391.808 712.862V676.458C384.538 671.81 376.563 668.372 368.194 666.274C358.697 663.971 348.951 662.862 339.179 662.973C322.679 662.973 308.203 666.186 295.75 672.612C283.589 678.715 273.516 688.297 266.813 700.141C260.026 712.078 256.632 726.071 256.632 742.119C256.632 758.167 260.026 772.145 266.813 784.051Z" fill="#341E4C"/><path fill-rule="evenodd" clip-rule="evenodd" d="M172.358 666.275H134.703L73.9956 817.762H113.424L125.566 786.543H181.401L193.59 817.762H232.769L172.358 666.275ZM153.554 706.152L171.968 757.068H134.874L153.554 706.152Z" fill="#341E4C"/><path d="M467.661 698.584H424.979V666.275H548.9V698.584H506V817.793H467.661V698.584Z" fill="#341E4C"/><path d="M624.085 666.275H585.73V817.762H624.085V666.275Z" fill="#341E4C"/><path d="M668.494 666.275H705.323L749.095 760.104L793.147 666.275H829.759V817.762H793.957V741.684L757.781 817.762H740.425L704.421 741.684V817.762H668.494V666.275Z" fill="#341E4C"/><path d="M912.43 666.275H874.091V817.762H912.43V666.275Z" fill="#341E4C"/></svg><span data-u="header">Geräte-Anleitungen</span></a>
+  <div class="nav-right">
+    <div class="lang" role="group" aria-label="Sprache / Language">
+      <button id="lang-de" type="button" data-l="de">DE</button>
+      <button id="lang-en" type="button" data-l="en">EN</button>
+    </div>
+    <a class="btn btn-dark btn-sm btn-contact" href="https://www.actimi.com/contact#contact-form" target="_blank" rel="noopener"><svg viewBox="0 0 16 12" aria-hidden="true"><path fill="currentColor" d="M0 1.5V12h16V1.5L8 7 0 1.5zM.6 0 8 5.1 15.4 0H.6z"/></svg><span data-u="contact">Kontakt</span></a>
   </div>
 </div></header>
-<main><div class="wrap" id="view"></div></main>
-
+<main id="view"></main>
+<footer class="footer"><div class="wrap">
+  <span>© 2026 Actimi GmbH · Stuttgart, Deutschland</span>
+  <a href="https://www.actimi.com" target="_blank" rel="noopener">actimi.com</a>
+  <a href="hospital-at-home/">Hospital at Home</a>
+  <span data-u="hosted">In Deutschland gehostete Daten · FHIR R4</span>
+  <span class="note" id="foot-note"></span>
+</div></footer>
 <script>
 const DATA = {"templates": {"glucose": [{"icon": "tablet", "de": ["App vorbereiten", "Die App Vitaliva auf Smartphone oder Tablet öffnen. Das Messgerät ist einmalig unter „Devices → Add“ gekoppelt."], "en": ["Prepare the app", "Open the Vitaliva app on your phone or tablet. The meter is paired once under “Devices → Add”."]}, {"icon": "strip", "de": ["Teststreifen einsetzen", "Einen neuen Teststreifen mit den Kontakten voran einsetzen. Das Messgerät schaltet sich ein."], "en": ["Insert a test strip", "Insert a new test strip, contacts first. The meter switches on."]}, {"icon": "drop", "de": ["Probe auftragen", "Blutstropfen an die Spitze des Streifens halten, bis er sich füllt. Bei der Demo auf der MEDICA nutzen wir Kontrolllösung."], "en": ["Apply the sample", "Touch a drop of blood to the tip of the strip until it fills. For the MEDICA demo we use control solution."]}, {"icon": "display", "de": ["Ergebnis ablesen", "Nach wenigen Sekunden zeigt das Messgerät den Blutzuckerwert an."], "en": ["Read the result", "After a few seconds the meter shows the blood glucose value."]}, {"icon": "bluetooth", "de": ["Automatisch übertragen", "Der Wert geht per Bluetooth an Vitaliva und erscheint unter „Home“ und „History“."], "en": ["Automatic transfer", "The value is sent to Vitaliva via Bluetooth and appears under “Home” and “History”."]}, {"icon": "dashboard", "de": ["Im Vitaliva-Dashboard", "Das Behandlungsteam sieht den neuen Wert sofort im Vitaliva-Dashboard."], "en": ["In the Vitaliva dashboard", "The care team sees the new value right away in the Vitaliva dashboard."]}], "spo2": [{"icon": "tablet", "de": ["App vorbereiten", "Die App Vitaliva auf Smartphone oder Tablet öffnen. Das Pulsoximeter ist einmalig unter „Devices → Add“ gekoppelt."], "en": ["Prepare the app", "Open the Vitaliva app on your phone or tablet. The pulse oximeter is paired once under “Devices → Add”."]}, {"icon": "finger", "de": ["Finger einlegen", "Zeige- oder Mittelfinger bis zum Anschlag einlegen, der Fingernagel zeigt nach oben."], "en": ["Insert your finger", "Slide your index or middle finger all the way in, nail facing up."]}, {"icon": "button", "de": ["Messung starten", "Taste am Gerät drücken. Die Hand ruhig auf den Tisch legen und nicht sprechen."], "en": ["Start the measurement", "Press the button on the device. Rest your hand on the table and keep still."]}, {"icon": "display", "de": ["Ergebnis ablesen", "Nach etwa 10 Sekunden zeigt das Display Sauerstoffsättigung (SpO₂) und Puls."], "en": ["Read the result", "After about 10 seconds the display shows oxygen saturation (SpO₂) and pulse rate."]}, {"icon": "bluetooth", "de": ["Automatisch übertragen", "Die Werte gehen per Bluetooth an Vitaliva und erscheinen unter „Home“ und „History“."], "en": ["Automatic transfer", "The values are sent to Vitaliva via Bluetooth and appear under “Home” and “History”."]}, {"icon": "dashboard", "de": ["Im Vitaliva-Dashboard", "Das Behandlungsteam sieht SpO₂ und Puls sofort im Vitaliva-Dashboard."], "en": ["In the Vitaliva dashboard", "The care team sees SpO₂ and pulse right away in the Vitaliva dashboard."]}], "bp": [{"icon": "tablet", "de": ["App vorbereiten", "Die App Vitaliva auf Smartphone oder Tablet öffnen. Das Blutdruckmessgerät ist einmalig unter „Devices → Add“ gekoppelt."], "en": ["Prepare the app", "Open the Vitaliva app on your phone or tablet. The blood pressure monitor is paired once under “Devices → Add”."]}, {"icon": "cuff", "de": ["Manschette anlegen", "Manschette am freien Oberarm anlegen, etwa 2 cm über der Ellenbeuge. Den Arm entspannt auf Herzhöhe ablegen."], "en": ["Put on the cuff", "Wrap the cuff around the bare upper arm, about 2 cm above the elbow. Rest the arm relaxed at heart level."]}, {"icon": "button", "de": ["Messung starten", "Start-Taste drücken. Während der Messung ruhig sitzen und nicht sprechen."], "en": ["Start the measurement", "Press the start button. Sit still and do not talk during the measurement."]}, {"icon": "display", "de": ["Ergebnis ablesen", "Das Display zeigt den oberen und unteren Blutdruckwert sowie den Puls."], "en": ["Read the result", "The display shows systolic and diastolic blood pressure and the pulse rate."]}, {"icon": "bluetooth", "de": ["Automatisch übertragen", "Die Werte gehen per Bluetooth an Vitaliva und erscheinen unter „Home“ und „History“."], "en": ["Automatic transfer", "The values are sent to Vitaliva via Bluetooth and appear under “Home” and “History”."]}, {"icon": "dashboard", "de": ["Im Vitaliva-Dashboard", "Das Behandlungsteam sieht Blutdruck und Puls sofort im Vitaliva-Dashboard."], "en": ["In the Vitaliva dashboard", "The care team sees blood pressure and pulse right away in the Vitaliva dashboard."]}], "peakflow": [{"icon": "tablet", "de": ["App vorbereiten", "Die App Vitaliva auf Smartphone oder Tablet öffnen. Das Peak-Flow-Meter ist einmalig unter „Devices → Add“ gekoppelt."], "en": ["Prepare the app", "Open the Vitaliva app on your phone or tablet. The peak flow meter is paired once under “Devices → Add”."]}, {"icon": "button", "de": ["Gerät einschalten", "Die Ein/Aus-Taste drücken und warten, bis das Display messbereit ist."], "en": ["Switch on", "Press the on/off button and wait until the display is ready."]}, {"icon": "blow", "de": ["Kräftig ausatmen", "Aufrecht stehen, tief einatmen, das Mundstück fest mit den Lippen umschließen und so schnell und kräftig wie möglich ausatmen."], "en": ["Blow out hard", "Stand up straight, breathe in deeply, seal your lips around the mouthpiece and blow out as hard and fast as you can."]}, {"icon": "display", "de": ["Ergebnis ablesen", "Das Display zeigt den Spitzenfluss (PEF) und die Einsekundenkapazität (FEV1)."], "en": ["Read the result", "The display shows peak expiratory flow (PEF) and FEV1."]}, {"icon": "bluetooth", "de": ["Automatisch übertragen", "Die Werte gehen per Bluetooth an Vitaliva und erscheinen unter „Home“ und „History“."], "en": ["Automatic transfer", "The values are sent to Vitaliva via Bluetooth and appear under “Home” and “History”."]}, {"icon": "dashboard", "de": ["Im Vitaliva-Dashboard", "Das Behandlungsteam sieht PEF und FEV1 sofort im Vitaliva-Dashboard."], "en": ["In the Vitaliva dashboard", "The care team sees PEF and FEV1 right away in the Vitaliva dashboard."]}], "doppler": [{"icon": "tablet", "de": ["App vorbereiten", "Die App Vitaliva auf Smartphone oder Tablet öffnen. Der Doppler ist einmalig unter „Devices → Add“ gekoppelt."], "en": ["Prepare the app", "Open the Vitaliva app on your phone or tablet. The Doppler is paired once under “Devices → Add”."]}, {"icon": "gel", "de": ["Gel auftragen", "Etwas Ultraschallgel auf den unteren Bauch geben."], "en": ["Apply gel", "Put some ultrasound gel on the lower abdomen."]}, {"icon": "probe", "de": ["Schallkopf aufsetzen", "Gerät einschalten, den Schallkopf auf das Gel setzen und langsam bewegen, bis die Herztöne gut zu hören sind."], "en": ["Place the probe", "Switch the device on, place the probe on the gel and move it slowly until the heartbeat is clearly audible."]}, {"icon": "display", "de": ["Herztöne hören", "Über den Lautsprecher sind die Herztöne des Babys zu hören. Die Herzfrequenz erscheint in der App."], "en": ["Listen to the heartbeat", "The baby’s heartbeat can be heard through the speaker. The heart rate appears in the app."]}, {"icon": "bluetooth", "de": ["Automatisch übertragen", "Die Messung geht per Bluetooth an Vitaliva und erscheint unter „Home“ und „History“."], "en": ["Automatic transfer", "The reading is sent to Vitaliva via Bluetooth and appears under “Home” and “History”."]}, {"icon": "dashboard", "de": ["Im Vitaliva-Dashboard", "Das Behandlungsteam sieht die Messung sofort im Vitaliva-Dashboard."], "en": ["In the Vitaliva dashboard", "The care team sees the reading right away in the Vitaliva dashboard."]}]}, "devices": [{"id": "mio", "partner": "MIO", "device": "MIO Blood Glucose Meter", "type": "glucose", "readout": ["108", "mg/dL"], "values_de": "Blutzucker", "values_en": "Blood glucose", "tip_de": "Akku-Gerät: vor der Messe vollständig laden.", "tip_en": "Rechargeable meter: charge it fully before use."}, {"id": "fora", "partner": "ForaCare", "device": "FORA PO200 Pulsoximeter", "type": "spo2", "readout": ["98 %", "PR 72 bpm"], "values_de": "SpO₂, Puls", "values_en": "SpO₂, pulse rate", "tip_de": "Nagellack oder kalte Finger können die Messung stören.", "tip_en": "Nail polish or cold fingers can affect the reading."}, {"id": "oxysmart", "partner": "OXYSMART", "device": "OXYSMART Fingertip-Pulsoximeter", "type": "spo2", "readout": ["97 %", "PR 68 bpm"], "values_de": "SpO₂, Puls", "values_en": "SpO₂, pulse rate", "tip_de": "Nagellack oder kalte Finger können die Messung stören.", "tip_en": "Nail polish or cold fingers can affect the reading."}, {"id": "andesfit", "partner": "Andesfit Health", "device": "Andesfit ADF-B27", "type": "glucose", "readout": ["5.8", "mmol/L"], "values_de": "Blutzucker", "values_en": "Blood glucose", "tip_de": "Einheit (mg/dL oder mmol/L) vorab am Gerät prüfen.", "tip_en": "Check the unit (mg/dL or mmol/L) on the meter beforehand."}, {"id": "aktivmed", "partner": "aktivmed", "device": "GlucoCheck GOLD", "type": "glucose", "readout": ["100", "mg/dL"], "values_de": "Blutzucker", "values_en": "Blood glucose", "tip_de": "Den benutzten Streifen hygienisch per Auswurf-Taste entsorgen.", "tip_en": "Eject the used strip hygienically with the eject button."}, {"id": "fora6duo", "partner": "ForaCare", "device": "FORA 6 Duo", "type": "glucose", "readout": ["92", "mg/dL"], "values_de": "Blutzucker, β-Keton", "values_en": "Blood glucose, β-ketone", "tip_de": "Für Keton-Messungen die eigenen β-Keton-Teststreifen verwenden.", "tip_en": "Use the dedicated β-ketone test strips for ketone readings."}, {"id": "sinocare", "partner": "Sinocare", "device": "Sinocare Safe AQ Air", "type": "glucose", "readout": ["104", "mg/dL"], "values_de": "Blutzucker", "values_en": "Blood glucose", "tip_de": "Keine Kodierung nötig, schon 0,6 µl Blut genügen.", "tip_en": "No coding needed – a 0.6 µl blood sample is enough."}, {"id": "bpb6", "partner": "microlife", "device": "microlife BP B6 Connect", "type": "bp", "readout": ["124/75", "PUL 82"], "values_de": "Blutdruck, Puls", "values_en": "Blood pressure, pulse", "tip_de": "Im MAM-Modus misst das Gerät dreimal hintereinander und erkennt Hinweise auf Vorhofflimmern.", "tip_en": "In MAM mode the monitor measures three times in a row and screens for atrial fibrillation."}, {"id": "ihealth", "partner": "iHealth", "device": "iHealth Track", "type": "bp", "readout": ["124/82", "PUL 75"], "values_de": "Blutdruck, Puls", "values_en": "Blood pressure, pulse", "tip_de": "Die Farbanzeige zeigt die Einstufung nach WHO: grün, gelb oder rot.", "tip_en": "The colour screen shows the WHO classification: green, yellow or red."}, {"id": "pf200", "partner": "microlife", "device": "microlife PF 200 BT", "type": "peakflow", "readout": ["700", "L/min"], "values_de": "PEF, FEV1", "values_en": "PEF, FEV1", "tip_de": "Für jede Person ein eigenes Mundstück verwenden.", "tip_en": "Use a separate mouthpiece for each person."}, {"id": "jpd200s", "partner": "AngelSounds", "device": "AngelSounds JPD-200S", "type": "doppler", "readout": ["142", "bpm"], "values_de": "Fetale Herzfrequenz", "values_en": "Fetal heart rate", "tip_de": "Nur Ultraschallgel verwenden. Der Doppler ersetzt keine Vorsorgeuntersuchung.", "tip_en": "Use ultrasound gel only. The Doppler does not replace prenatal check-ups."}]};
 const T = {
@@ -91,34 +168,83 @@ let lang = 'de';
 try { lang = localStorage.getItem('actimi-lang') || ((navigator.language||'de').toLowerCase().startsWith('de') ? 'de' : 'en'); } catch(e){ lang = (navigator.language||'de').toLowerCase().startsWith('de') ? 'de' : 'en'; }
 const esc = s => String(s).replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
 
+/* Extra UI strings for the actimi.com-style frame (ribbon, header, hero, sections). */
+const U = {
+  de:{ribbon:"Besuchen Sie uns auf der MEDICA 2026", booth:"Halle 17 · Stand B22", dates:"16.–19. November · Düsseldorf", book:"Termin buchen", contact:"Kontakt", header:"Geräte-Anleitungen",
+      hosted:"In Deutschland gehostete Daten · FHIR R4", certs:"Bewährt und zertifiziert", devicesEyebrow:"Kompatible Geräte", devicesTitle:"Wählen Sie Ihr Gerät",
+      devicesLead:"Video mit Sprecher, sechs Schritte und ein Praxistipp – für jedes Gerät.", open:"Anleitung öffnen", videoEyebrow:"Erklärvideo",
+      videoTitle:"In einer Minute erklärt", stepsEyebrow:"Schritt für Schritt", alsoEyebrow:"Weitere Geräte", alsoTitle:"Andere Anleitungen"},
+  en:{ribbon:"Meet us at MEDICA 2026", booth:"Hall 17 · Booth B22", dates:"16–19 November · Düsseldorf", book:"Book a meeting", contact:"Contact", header:"Device guides",
+      hosted:"Data hosted in Germany · FHIR R4", certs:"Proven and certified", devicesEyebrow:"Compatible devices", devicesTitle:"Choose your device",
+      devicesLead:"Narrated video, six steps and a practical tip – for every device.", open:"Open guide", videoEyebrow:"Explainer video",
+      videoTitle:"Explained in one minute", stepsEyebrow:"Step by step", alsoEyebrow:"More devices", alsoTitle:"Other guides"}
+};
+const TRUST = {de:['MDR-Klasse IIa','DSGVO','ISO 27001','ISO 13485'], en:['MDR Class IIa','GDPR','ISO 27001','ISO 13485']};
+const ARROW = '<svg viewBox="0 0 448 512" aria-hidden="true"><path fill="currentColor" d="M190.5 66.9l22.2-22.2c9.4-9.4 24.6-9.4 33.9 0L441 239c9.4 9.4 9.4 24.6 0 33.9L246.6 467.3c-9.4 9.4-24.6 9.4-33.9 0l-22.2-22.2c-9.5-9.5-9.3-25 .4-34.3L311.4 296H24c-13.3 0-24-10.7-24-24v-32c0-13.3 10.7-24 24-24h287.4L190.9 101.2c-9.8-9.3-10-24.8-.4-34.3z"/></svg>';
+const CHECK = '<svg viewBox="0 0 16 16" aria-hidden="true"><circle cx="8" cy="8" r="8" fill="currentColor" opacity=".25"/><path d="M4.5 8.2l2.2 2.2 4.8-4.8" fill="none" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+
+const vals = d => lang==='de' ? d.values_de : d.values_en;
+function certs(){
+  return `<div class="certs"><span class="lbl">${U[lang].certs}</span>${TRUST[lang].map(t=>`<span class="c">${CHECK}${esc(t)}</span>`).join('')}</div>`;
+}
+function deviceCard(d){
+  return `<a class="card dev" href="#${d.id}"><img src="${d.id}_${lang}.jpg" alt="" loading="lazy"><div class="body"><p class="who-lbl">${esc(d.partner)}</p><h4>${esc(d.device)}</h4><p>${esc(vals(d))}</p><span class="more">${U[lang].open} ${ARROW}</span></div></a>`;
+}
 function overview(){
-  const t = T[lang];
-  return `<section><div class="eyebrow">${t.overviewEyebrow}</div><h1>${t.overviewTitle}</h1><p class="lead">${t.overviewLead}</p></section>
-  <section class="grid">${DATA.devices.map(d=>`<a class="card" href="#${d.id}"><img src="${d.id}_${lang}.jpg" alt=""><div><strong>${esc(d.device)}</strong><br><span>${esc(lang==='de'?d.values_de:d.values_en)}</span></div></a>`).join('')}</section>
-  <p class="foot">${t.foot}</p>`;
+  const t = T[lang], u = U[lang];
+  return `<section class="hero"><div class="wrap">
+    <p class="eyebrow">${t.overviewEyebrow}</p>
+    <h1>${t.overviewTitle}</h1>
+    <p class="lead">${t.overviewLead}</p>
+    ${certs()}
+  </div></section>
+  <section class="sec"><div class="wrap">
+    <p class="eyebrow">${u.devicesEyebrow}</p>
+    <div class="sec-head"><h2>${u.devicesTitle}</h2><p class="sec-lead">${u.devicesLead}</p></div>
+    <div class="grid g3">${DATA.devices.map(deviceCard).join('')}</div>
+  </div></section>`;
 }
 function guide(d){
-  const t = T[lang], steps = DATA.templates[d.type];
-  return `<a class="back" href="#start">${t.back}</a>
-  <section><div class="eyebrow">${t.compatible}</div><h1>${esc(d.device)} <em>× Vitaliva</em></h1>
-    <div class="meta"><span class="chip">${esc(d.partner)}</span><span class="chip">${t.values}: ${esc(lang==='de'?d.values_de:d.values_en)}</span><span class="chip">Bluetooth</span></div></section>
-  <section><video id="vid-${d.id}" src="${d.id}_${lang}.mp4" poster="${d.id}_${lang}.jpg" controls playsinline preload="metadata"></video><div class="vcap">${t.video}</div></section>
-  <section><h2>${t.steps}</h2><ol class="steps">${steps.map(s=>`<li><div><h3>${esc(s[lang][0])}</h3><p>${esc(s[lang][1])}</p></div></li>`).join('')}</ol></section>
-  <aside class="tip"><b>${t.tip}</b>${esc(lang==='de'?d.tip_de:d.tip_en)}</aside>
-  <p class="foot">${t.foot}</p>`;
+  const t = T[lang], u = U[lang], steps = DATA.templates[d.type];
+  const others = DATA.devices.filter(x => x.type === d.type && x.id !== d.id);
+  const more = (others.length ? others : DATA.devices.filter(x => x.id !== d.id)).slice(0,3);
+  return `<section class="hero"><div class="wrap">
+    <a class="back" href="#start">${t.back}</a>
+    <p class="eyebrow">${t.compatible}</p>
+    <h1>${esc(d.device)} <em>× Vitaliva</em></h1>
+    <div class="chips"><span>${esc(d.partner)}</span><span>${t.values}: ${esc(vals(d))}</span><span>Bluetooth</span></div>
+  </div></section>
+  <section class="sec"><div class="wrap">
+    <p class="eyebrow">${u.videoEyebrow}</p>
+    <div class="sec-head"><h2>${u.videoTitle}</h2></div>
+    <div class="card player"><video id="vid-${d.id}" src="${d.id}_${lang}.mp4" poster="${d.id}_${lang}.jpg" controls playsinline preload="metadata"></video><div class="vcap">${t.video}</div></div>
+  </div></section>
+  <section class="sec alt"><div class="wrap">
+    <p class="eyebrow">${u.stepsEyebrow}</p>
+    <div class="sec-head"><h2>${t.steps}</h2></div>
+    <div class="grid g3">${steps.map((s,i)=>`<div class="card step"><div class="num">${i+1}</div><h4>${esc(s[lang][0])}</h4><p>${esc(s[lang][1])}</p></div>`).join('')}</div>
+    <aside class="tip"><p class="eyebrow">${t.tip}</p><p>${esc(lang==='de'?d.tip_de:d.tip_en)}</p></aside>
+  </div></section>
+  <section class="sec"><div class="wrap">
+    <p class="eyebrow">${u.alsoEyebrow}</p>
+    <div class="sec-head"><h2>${u.alsoTitle}</h2></div>
+    <div class="grid g3">${more.map(deviceCard).join('')}</div>
+  </div></section>`;
 }
 function render(){
   document.documentElement.lang = lang;
   document.querySelectorAll('[data-i]').forEach(el=>{ el.textContent = T[lang][el.dataset.i]; });
+  document.querySelectorAll('[data-u]').forEach(el=>{ el.textContent = U[lang][el.dataset.u]; });
   document.querySelectorAll('.lang button').forEach(b=>b.setAttribute('aria-pressed', String(b.dataset.l===lang)));
   const id = (location.hash||'').slice(1);
   const d = DATA.devices.find(x=>x.id===id);
   document.getElementById('view').innerHTML = d ? guide(d) : overview();
+  document.getElementById('foot-note').textContent = T[lang].foot;
+  document.title = d ? `${d.device} × Vitaliva · ${T[lang].tagline}` : (lang==='de' ? 'Vitaliva Geräte-Anleitungen' : 'Vitaliva device guides');
 }
 document.querySelectorAll('.lang button').forEach(b=>b.addEventListener('click',()=>{ lang=b.dataset.l; try{localStorage.setItem('actimi-lang',lang)}catch(e){} render(); }));
 window.addEventListener('hashchange',()=>{ render(); window.scrollTo(0,0); });
 render();
 </script>
-
 </body>
 </html>
